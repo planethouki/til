@@ -9,10 +9,12 @@ require 'ecdsa'
 root_ent_r = SecureRandom.hex(16)
 root_ent_f = "e938ff837eee2661bbf3e8dc7e999722"
 root_ent_t = "f76c442bf7847df1a6c1a859043eb02e"
-root_ent_use = root_ent_t
+root_ent_use = root_ent_f
 mnemonic = Bitcoin::Trezor::Mnemonic.to_mnemonic([root_ent_use].pack("H*"))
 seed = Bitcoin::Trezor::Mnemonic.to_seed(mnemonic)
-#seed to be c134ba00badd038b9f7bc8506c5a6245c0762e1d2fb65e73606f353298c3014b1c748baa9b9e6d0cedcf6d11fa192cf707d6e85370180d5d95274ba09e72e279
+p mnemonic
+#p seed
+#(t) seed to be c134ba00badd038b9f7bc8506c5a6245c0762e1d2fb65e73606f353298c3014b1c748baa9b9e6d0cedcf6d11fa192cf707d6e85370180d5d95274ba09e72e279
 
 i_master = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('SHA512'),"Bitcoin seed",[seed].pack("H*"))
 
@@ -28,7 +30,7 @@ check_sum = Digest::SHA256.hexdigest(Digest::SHA256.digest([payload].pack("H*"))
 
 p_master_ser = Bitcoin.encode_base58(payload + check_sum[0..7])
 p p_master_ser
-#p_master_ser to be xprv9s21ZrQH143K4GKGLy7cuGD7dqsXC8Sy82FQkeABdzaZ7otVpbrMZyK6CmSjZcRiaYRnNrGa9GxRUqz6mzasQiq3QmdHwNcqgsFbBoNba7G
+#(t) p_master_ser to be xprv9s21ZrQH143K4GKGLy7cuGD7dqsXC8Sy82FQkeABdzaZ7otVpbrMZyK6CmSjZcRiaYRnNrGa9GxRUqz6mzasQiq3QmdHwNcqgsFbBoNba7G
 
 # m/44'/0'/0'/0/0 address
 #CURVE_ORDER = 115792089237316195423570985008687907852837564279074904382605163141518161494337

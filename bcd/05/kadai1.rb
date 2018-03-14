@@ -4,7 +4,7 @@ require 'digest'
 
 p "======== sample  ========"
 root_seed_t = "f76c442bf7847df1a6c1a859043eb02e"
-p Bitcoin::Trezor::Mnemonic.to_mnemonic([root_seed_t].pack("H*"))
+#p Bitcoin::Trezor::Mnemonic.to_mnemonic([root_seed_t].pack("H*"))
 #“wash giraffe april upper elephant web only  crush flip capable project front”
 
 
