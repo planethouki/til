@@ -1,0 +1,122 @@
+> personal.newAccount("test00")
+"0x4aa8889eabc9296c54c491ef2f5e93ccadb75a2a"
+> personal.newAccount("test01")
+"0xf4e86f15b81de1b168bd0dd170ae5d441649c3c6"
+> personal.newAccount("test02")
+"0xe7990bf898e696ba5bdf331a1708260b14509a0b"
+
+> eth.coinbase
+"0x4aa8889eabc9296c54c491ef2f5e93ccadb75a2a"
+
+> miner.start()
+INFO [04-12|02:26:50] Updated mining threads                   threads=0
+INFO [04-12|02:26:50] Transaction pool price threshold updated price=18000000000
+INFO [04-12|02:26:50] Starting mining operation
+INFO [04-12|02:26:50] Commit new mining work                   number=1 txs=0 uncles=0 elapsed=463.833µs
+null
+> INFO [04-12|02:27:01] Successfully sealed new block            number=1 hash=af52d6…7049e7
+INFO [04-12|02:27:01] 🔨 mined potential block                  number=1 hash=af52d6…7049e7
+INFO [04-12|02:27:01] Commit new mining work                   number=2 txs=0 uncles=0 elapsed=287.444µs
+INFO [04-12|02:27:02] Successfully sealed new block            number=2 hash=0f9d0b…0eae0d
+
+# 残高増えた
+> eth.getBalance(eth.accounts[0])
+65000000000000000000
+
+# 送金
+> eth.sendTransaction({from: eth.accounts[0], to: eth.accounts[2], value:web3.toWei(5, "ether")})
+INFO [04-12|04:08:22] Submitted transaction                    fullhash=0xc1de15ac337fa42993195f9f56799edad44ac28376f0fb3feb0e8a1a40f92bdb recipient=0xe7990bf898e696bA5BdF331A1708260B14509a0B
+"0xc1de15ac337fa42993195f9f56799edad44ac28376f0fb3feb0e8a1a40f92bdb"
+
+> eth.getTransaction("0xc1de15ac337fa42993195f9f56799edad44ac28376f0fb3feb0e8a1a40f92bdb")
+{
+  blockHash: "0x0000000000000000000000000000000000000000000000000000000000000000",
+  blockNumber: null,
+  from: "0x4aa8889eabc9296c54c491ef2f5e93ccadb75a2a",
+  gas: 90000,
+  gasPrice: 18000000000,
+  hash: "0xc1de15ac337fa42993195f9f56799edad44ac28376f0fb3feb0e8a1a40f92bdb",
+  input: "0x",
+  nonce: 0,
+  r: "0xd259b04f5fe9765f2c0db04b7c6cbe06218966c248aefd806c5dd6c217eebe97",
+  s: "0x121b9c1ba852f56d044914f5d4e51d39ed41b70ed463332b7c33ad3c7f6dd931",
+  to: "0xe7990bf898e696ba5bdf331a1708260b14509a0b",
+  transactionIndex: 0,
+  v: "0x65",
+  value: 5000000000000000000
+}
+
+# マイニング
+> miner.start(1)
+INFO [04-12|04:10:22] Updated mining threads                   threads=1
+INFO [04-12|04:10:22] Transaction pool price threshold updated price=18000000000
+INFO [04-12|04:10:22] Starting mining operation
+null
+> INFO [04-12|04:10:22] Commit new mining work                   number=14 txs=1 uncles=0 elapsed=1.806ms
+> minecINFO [04-12|04:10:25] Successfully sealed new block            number=14 hash=278f98…e2fe91
+INFO [04-12|04:10:25] 🔗 block reached canonical chain          number=9  hash=9e6f1e…a79e2b
+INFO [04-12|04:10:25] Commit new mining work                   number=15 txs=0 uncles=0 elapsed=376.725µs
+INFO [04-12|04:10:25] 🔨 mined potential block                  number=14 hash=278f98…e2fe91
+> miner.stop()
+true
+
+# ブロック１４
+> eth.getBlock(14)
+{
+  difficulty: 131072,
+  extraData: "0xd783010802846765746887676f312e392e34856c696e7578",
+  gasLimit: 132394343,
+  gasUsed: 21000,
+  hash: "0x278f98f7f53bede6ea73ee0f3664e292625f89b5481482de1e4f5d70dbe2fe91",
+  logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  miner: "0x4aa8889eabc9296c54c491ef2f5e93ccadb75a2a",
+  mixHash: "0x5a3a9a2ad299d221a1d17cbbb5d244a3fe09c6222199c82a6461e9054cb8035a",
+  nonce: "0x54840784ac8715a2",
+  number: 14,
+  parentHash: "0xa532d5c6bb9fa9611bd42d2179d68a6742ecc9d7f0bcadf89d495443c7b9ce24",
+  receiptsRoot: "0xf6e4fbb6c5640d5a1ad4eb6b831d0d86cf5aedd309c361720075fe0b4edf2044",
+  sha3Uncles: "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+  size: 650,
+  stateRoot: "0xe0e7807d248f8589b5c41dba27d16b1bbe6cad50e20348b5abf431f5c2b852e1",
+  timestamp: 1523506222,
+  totalDifficulty: 1839232,
+  transactions: ["0xc1de15ac337fa42993195f9f56799edad44ac28376f0fb3feb0e8a1a40f92bdb"],
+  transactionsRoot: "0xa2285e078026b2f5fc8dc76c5262eeddc235f1f09df76465e6f7b1b9b59a2154",
+  uncles: []
+}
+
+# ブロックナンバーがついた
+> eth.getTransaction("0xc1de15ac337fa42993195f9f56799edad44ac28376f0fb3feb0e8a1a40f92bdb")
+{
+  blockHash: "0x278f98f7f53bede6ea73ee0f3664e292625f89b5481482de1e4f5d70dbe2fe91",
+  blockNumber: 14,
+  from: "0x4aa8889eabc9296c54c491ef2f5e93ccadb75a2a",
+  gas: 90000,
+  gasPrice: 18000000000,
+  hash: "0xc1de15ac337fa42993195f9f56799edad44ac28376f0fb3feb0e8a1a40f92bdb",
+  input: "0x",
+  nonce: 0,
+  r: "0xd259b04f5fe9765f2c0db04b7c6cbe06218966c248aefd806c5dd6c217eebe97",
+  s: "0x121b9c1ba852f56d044914f5d4e51d39ed41b70ed463332b7c33ad3c7f6dd931",
+  to: "0xe7990bf898e696ba5bdf331a1708260b14509a0b",
+  transactionIndex: 0,
+  v: "0x65",
+  value: 5000000000000000000
+}
+
+# レシートとは？
+> eth.getTransactionReceipt("0xc1de15ac337fa42993195f9f56799edad44ac28376f0fb3feb0e8a1a40f92bdb")
+{
+  blockHash: "0x278f98f7f53bede6ea73ee0f3664e292625f89b5481482de1e4f5d70dbe2fe91",
+  blockNumber: 14,
+  contractAddress: null,
+  cumulativeGasUsed: 21000,
+  from: "0x4aa8889eabc9296c54c491ef2f5e93ccadb75a2a",
+  gasUsed: 21000,
+  logs: [],
+  logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  root: "0xeebd73db80510d5df2ed4bfb37d3fb8f8e87e4b23ef0ba2d2592cd3a32464e29",
+  to: "0xe7990bf898e696ba5bdf331a1708260b14509a0b",
+  transactionHash: "0xc1de15ac337fa42993195f9f56799edad44ac28376f0fb3feb0e8a1a40f92bdb",
+  transactionIndex: 0
+}

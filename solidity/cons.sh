@@ -1,0 +1,1 @@
+geth --networkid "10" --nodiscover --datadir ~/eth_private_net/ --rpc --rpcaddr "0.0.0.0" --rpcport "8545" --rpccorsdomain "*" --rpcapi "eth,net,web3,personal" --targetgaslimit "20000000" console --unlock 0x4aa8889eabc9296c54c491ef2f5e93ccadb75a2a,0xf4e86f15b81de1b168bd0dd170ae5d441649c3c6,0xe7990bf898e696ba5bdf331a1708260b14509a0b --password ~/til/solidity/password.txt 

@@ -1,0 +1,149 @@
+
+creation of SimpleStorage pending...
+[vm] from:0xca3...a733c, to:SimpleStorage.(constructor), value:0 wei, data:0x606...70029, 0 logs, hash:0x0f7...25e3a
+ status 	0x1 Transaction mined and execution succeed
+ contractAddress 	0xbbf289d846208c16edc8474705c748aff07732db
+ from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+ to 	SimpleStorage.(constructor)
+ gas 	3000000 gas
+
+ transaction cost 	108856 gas
+ execution cost 	42288 gas
+ hash 	0x0f7e8e9dc24d8acaefa60ccda7a031de7630ec53a54ea5a42e15a8f784825e3a
+ input 	0x6060604052341561000f57600080fd5b60d38061001d6000396000f3006060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806360fe47b114604e5780636d4ce63c14606e575b600080fd5b3415605857600080fd5b606c60048080359060200190919050506094565b005b3415607857600080fd5b607e609e565b6040518082815260200191505060405180910390f35b8060008190555050565b600080549050905600a165627a7a723058202182c886bb611251d37ea24b390ca3479e2f1c8d6e2045b7e3cb927fe7764b170029
+ decoded input 	{}
+ decoded output 	 -
+ logs 	[]
+ value 	0 wei
+
+transact to SimpleStorage.set pending ...
+[vm] from:0xca3...a733c, to:SimpleStorage.set(uint256) 0xbbf...732db, value:0 wei, data:0x60f...007e1, 0 logs, hash:0x859...6a626
+ status 	0x1 Transaction mined and execution succeed
+ from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+ to 	SimpleStorage.set(uint256) 0xbbf289d846208c16edc8474705c748aff07732db
+ gas 	3000000 gas
+
+ transaction cost 	41706 gas
+ execution cost 	20178 gas
+ hash 	0x859589b1bd1f24acd470fbac188bfb700086c927f4931a35c0640a5790e6a626
+ input 	0x60fe47b100000000000000000000000000000000000000000000000000000000000007e1
+ decoded input 	{
+	"uint256 x": "2017"
+}
+ decoded output 	{}
+ logs 	[]
+ value 	0 wei
+
+call to SimpleStorage.get
+[call] from:0xca35b7d915458ef540ade6068dfe2f44e8fa733c, to:SimpleStorage.get(), data:6d4ce...ce63c, return:
+{
+	"0": "uint256: 2017"
+}
+ from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+ to 	SimpleStorage.get() 0xbbf289d846208c16edc8474705c748aff07732db
+ transaction cost 	21688 gas (Cost only applies when called by a contract)
+ execution cost 	416 gas (Cost only applies when called by a contract)
+ input 	6d4ce63c
+ decoded input 	{}
+ decoded output 	{
+	"0": "uint256: 2017"
+}
+ logs 	[]
+
+
+
+
+
+
+
+creation of SimpleStorageOwner pending...
+[vm] from:0x147...c160c, to:SimpleStorageOwner.(constructor), value:0 wei, data:0x606...90029, 0 logs, hash:0x141...96182
+ status 	0x1 Transaction mined and execution succeed
+ contractAddress 	0x6431fd0c29d024c5b04c7dab157fccd329e62e55
+ from 	0x14723a09acff6d2a60dcdf7aa4aff308fddc160c
+ to 	SimpleStorageOwner.(constructor)
+ gas 	3000000 gas
+
+ transaction cost 	159800 gas
+ execution cost 	82772 gas
+ hash 	0x14164f2781e21297a19e576776719199babd0e6a94510d6f4fa919961be96182
+ input 	0x6060604052341561000f57600080fd5b33600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506101388061005f6000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806360fe47b1146100515780636d4ce63c14610074575b600080fd5b341561005c57600080fd5b610072600480803590602001909190505061009d565b005b341561007f57600080fd5b610087610103565b6040518082815260200191505060405180910390f35b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff161415156100f957600080fd5b8060008190555050565b600080549050905600a165627a7a72305820d35d74f944601437c087531bf25f4664b0d0652865a8dcbc1ea620e75851c0090029
+ decoded input 	{}
+ decoded output 	 -
+ logs 	[]
+ value 	0 wei
+
+# Ownerでないアドレスがsetしたら失敗
+ transact to SimpleStorageOwner.set pending ...
+ [vm] from:0xca3...a733c, to:SimpleStorageOwner.set(uint256) 0x643...62e55, value:0 wei, data:0x60f...0021e, 0 logs, hash:0xfa7...20e30
+  status 	0x0 Transaction mined but execution failed
+  from 	0xca35b7d915458ef540ade6068dfe2f44e8fa733c
+  to 	SimpleStorageOwner.set(uint256) 0x6431fd0c29d024c5b04c7dab157fccd329e62e55
+  gas 	3000000 gas
+
+  transaction cost 	21962 gas
+  execution cost 	434 gas
+  hash 	0xfa750116ad0f423029cb077f59b43b4f672524918bf3a7d46c2804cc19f20e30
+  input 	0x60fe47b1000000000000000000000000000000000000000000000000000000000000021e
+  decoded input 	{
+ 	"uint256 x": "542"
+ }
+  decoded output 	{}
+  logs 	[]
+  value 	0 wei
+
+ transact to SimpleStorageOwner.set errored: VM error: revert.
+ revert	The transaction has been reverted to the initial state.
+ Note: The constructor should be payable if you send value.	Debug the transaction to get more information.
+
+ # Ownerがsetしたら成功
+ transact to SimpleStorageOwner.set pending ...
+[vm] from:0x147...c160c, to:SimpleStorageOwner.set(uint256) 0x643...62e55, value:0 wei, data:0x60f...0021e, 0 logs, hash:0xd62...d7d19
+ status 	0x1 Transaction mined and execution succeed
+ from 	0x14723a09acff6d2a60dcdf7aa4aff308fddc160c
+ to 	SimpleStorageOwner.set(uint256) 0x6431fd0c29d024c5b04c7dab157fccd329e62e55
+ gas 	3000000 gas
+
+ transaction cost 	41982 gas
+ execution cost 	20454 gas
+ hash 	0xd62af7e2b02da6802efd3d6fff17bd98c8fe329c3dacbc375cf4839aa65d7d19
+ input 	0x60fe47b1000000000000000000000000000000000000000000000000000000000000021e
+ decoded input 	{
+	"uint256 x": "542"
+}
+ decoded output 	{}
+ logs 	[]
+ value 	0 wei
+
+
+
+# local Geth
+
+creation of SimpleStorageOwner pending...
+[block:27 txIndex:0] from:0x4aa...75a2a, to:SimpleStorageOwner.(constructor), value:0 wei, 0 logs, data:0x606...90029, hash:0xa2c...a1d85
+
+> INFO [04-12|07:35:33] Submitted contract creation              fullhash=0xa2c59ea65950118898cac6c9a4ba388f800ab693e9dc470af776a091ba8a1d85 contract=0x491dfaAcE49E8D54537805e9e9210cdC2e402e32
+
+> eth.getBlock(27)
+{
+  difficulty: 131072,
+  extraData: "0xd783010802846765746887676f312e392e34856c696e7578",
+  gasLimit: 130723417,
+  gasUsed: 159800,
+  hash: "0xc7b63f8f76b2829c34aef3434c4e7d2b148ebea82fa08ece3f186788c7ca93b3",
+  logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  miner: "0x4aa8889eabc9296c54c491ef2f5e93ccadb75a2a",
+  mixHash: "0x077dbb417168edcf4881c5a5e51cf953d40a3bf22b41fc798698b4b536f7ccc9",
+  nonce: "0x08f2b1b06fe12a38",
+  number: 27,
+  parentHash: "0x1409273e0a55e4fc06e3b8409923a09ce952523225dc5e59e169441d077b2775",
+  receiptsRoot: "0x6e0dee911353c91521c40515dc279903230528cc10a49f0e7a21938b6af26529",
+  sha3Uncles: "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+  size: 1034,
+  stateRoot: "0xc0923f9b6688f937314d6bc559566b69bf37921cad9af8036502fc34db94880b",
+  timestamp: 1523518599,
+  totalDifficulty: 3547392,
+  transactions: ["0xa2c59ea65950118898cac6c9a4ba388f800ab693e9dc470af776a091ba8a1d85"],
+  transactionsRoot: "0x177ec82d2a7ddb355f26b5fa2663c655ccd0d18c9e66e1f62edcf35ddd2a4a11",
+  uncles: []
+}
