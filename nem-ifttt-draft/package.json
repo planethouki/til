@@ -1,0 +1,19 @@
+{
+  "name": "nem-ifttt",
+  "version": "0.0.1",
+  "description": "A sample",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "nem-sdk": "^1.6.4",
+    "request": "^2.85.0",
+    "ws": "^5.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/planethouki/nem-ifttt.git"
+  },
+  "license": "CC0-1.0"
+}
