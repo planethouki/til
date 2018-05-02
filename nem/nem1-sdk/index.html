@@ -1,0 +1,64 @@
+<html>
+<head>
+  <title>test</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="nem-sdk.js"></script>
+  <script>
+    $(function(){
+      var $content = $("#content");
+      $content.append(" hoge");
+
+      // Include the library
+      var nem = require("nem-sdk").default;
+      var common = nem.model.objects.create("common")("test01","0088f5985092a89fb2f02e13a153ad35ef46e4dd8498696bd50f8d950b947087d0");
+      var endpoint = nem.model.objects.create("endpoint")(nem.model.nodes.defaultTestnet, nem.model.nodes.defaultPort);
+      nem.com.requests.chain.height(endpoint).then(function(res){
+        $("#chain").append(JSON.stringify(res));
+      }, function(err) {
+        $("#chain").append(JSON.stringify(err));
+      });
+      nem.com.requests.account.mosaics.owned(endpoint,"TA2VKRQKUJDOBIAEX2METU4UBZ6MCSERPJE3UEOT").then(function(res){
+        $("#account").append(JSON.stringify(res));
+      }, function(err) {
+        $("#account").append(JSON.stringify(err));
+      });
+
+      $("form").submit(function() {
+        var address = $("input:first").val();
+        if (nem.model.address.isValid(address)) {
+          nem.com.requests.account.mosaics.owned(endpoint,address).then(function(res){
+            $("span").text(JSON.stringify(res));
+          }, function(err) {
+            $("span").text(JSON.stringify(err));
+          });
+        } else {
+          $("span").text("Not valid!").show().fadeOut(1000);
+        }
+        return false;
+      });
+    });
+
+    var aaa = function() {
+      var transfarTransaction = nem.model.objects.create("transfarTransaction")("TCGZEADSFI2GNW3PSERH2ZL7HZBGBUPNJYMMK4ZH", 1, "Hello");
+      var transactionEntry = nem.model.transactions.prepare("transfarTransaction")(common, transfarTransaction, nem.model.network.data.testnet.id);
+      $("transaction").append(JSON.stringify(transactionEntry));
+    };
+
+  </script>
+</head>
+<body>
+  <h1 id="title">Hello World !</h1>
+  <p id="content">foo bar</p>
+  <p id="account"></p>
+  <p id="chain"></p>
+  <p id="transaction"></p>
+    <form>
+      <div>
+        <input type="text" />
+        <input type="submit" />
+      </div>
+    </form>
+    <span></span>
+</body>
+</html>
