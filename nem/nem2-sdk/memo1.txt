@@ -1,0 +1,242 @@
+x    (proof)     : 6c39d7b8b22bf4639257
+H(x) (secret)    : 711CD6EC7FF6C15A7153070870FA637CB7905B068CAF765311D9491CCD62851A30D03A1BF16EE0AA5F866AE0DBFFCB143377F9649EB1A1A56E02397C8FA97BF1
+
+cRzW7H/2wVpxUwcIcPpjfLeQWwaMr3ZTEdlJHM1ihRow0Dob8W7gql+GauDb/8sUM3f5ZJ6xoaVuAjl8j6l78Q==
+
+
+bob tx1 search
+curl http://192.168.11.77:3000/account/3390BF02D2BB59C8722297FF998CE89183D0906E469873284C091A5CDC22FD57/transactions | jq .
+
+alice tx2 search
+curl http://192.168.11.77:3100/account/C36F5BDDE8B2B586D17A4E6F4B999DD36EBD114023C1231E38ABCB1976B938C0/transactions | jq .
+
+bob tx3 search
+curl http://192.168.11.77:3100/account/3390BF02D2BB59C8722297FF998CE89183D0906E469873284C091A5CDC22FD57/transactions | jq .
+
+
+
+root@ubuntu-bionic:/opt/nem2-sdk# node secretlock1.js
+x    (proof)     : b0932b16234f0f51d601
+H(x) (secret)    : 56930A1708E8918D07ACBCF2F8210307191A1ACC4903571142A6A231E8A4F7BCB3111C6731CA10CE957776F80CD3631B1F039E6A2187A2AC7CDEB4A6607643DF
+[Before] Bob(Private) have 409090887 nem:xem
+[Before] Alice(Private) have 409090931 nem:xem
+[Before] Bob(Public) have 58 foo:bar
+[Before] Bob(Public) have 409090570.99981 nem:xem
+[Before] Alice(Public) have 409089907.00019 nem:xem
+[Before] Alice(Public) have 1000000 foo:bar
+tx1Signed.hash   : 17456D34BF2328619D0FE39FDE65953FE6E86C3B1124E9F7A443D9E9D5CF9E6F
+tx1Signed.signer : 5D9513282B65A12A1B68DCB67DB64245721F7AE7822BE441FE813173803C512C
+TransactionAnnounceResponse {
+  message: 'packet 9 was pushed to the network via /transaction' }
+[Before] Bob(Private) have 409090887 nem:xem
+[Before] Alice(Private) have 409090931 nem:xem
+[Before] Bob(Public) have 409090570.99981 nem:xem
+[Before] Bob(Public) have 58 foo:bar
+[Before] Alice(Public) have 409089907.00019 nem:xem
+[Before] Alice(Public) have 999999 foo:bar
+
+root@ubuntu-bionic:/opt/nem2-sdk# curl http://192.168.11.77:3000/account/3390BF02D2BB59C8722297FF998CE89183D0906E469873284C091A5CDC22FD57/transactions | jq .[0]
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  7353  100  7353    0     0   478k      0 --:--:-- --:--:-- --:--:--  478k
+{
+  "meta": {
+    "height": [
+      38846,
+      0
+    ],
+    "hash": "17456D34BF2328619D0FE39FDE65953FE6E86C3B1124E9F7A443D9E9D5CF9E6F",
+    "merkleComponentHash": "17456D34BF2328619D0FE39FDE65953FE6E86C3B1124E9F7A443D9E9D5CF9E6F",
+    "index": 0,
+    "id": "5B1295A680FDB3000135B1C1"
+  },
+  "transaction": {
+    "signature": "246F3CFF78E6F7C15E9AE2F1CC166368C63EF5003B0EF5D908957DC0A579A043D130AA81FB0098770227AE84929FFA160084141F6E4165A0D6E491337335400F",
+    "signer": "5D9513282B65A12A1B68DCB67DB64245721F7AE7822BE441FE813173803C512C",
+    "version": 36867,
+    "type": 16972,
+    "fee": [
+      0,
+      0
+    ],
+    "deadline": [
+      4057850286,
+      15
+    ],
+    "duration": "60",
+    "mosaicId": "-1412091718288690897",
+    "amount": "1",
+    "hashAlgorithm": 0,
+    "secret": "VpMKFwjokY0HrLzy+CEDBxkaGsxJA1cRQqaiMeik97yzERxnMcoQzpV3dvgM02MbHwOeaiGHoqx83rSmYHZD3w==",
+    "recipient": "kHWOtHwo1hQ7qj3mqNnDGbUDob/Y54np4g=="
+  }
+}
+
+
+root@ubuntu-bionic:/opt/nem2-sdk# node secretlock2.js VpMKFwjokY0HrLzy+CEDBxkaGsxJA1cRQqaiMeik97yzERxnMcoQzpV3dvgM02MbH
+wOeaiGHoqx83rSmYHZD3w==
+[Before] Bob(Private) have 409090887 nem:xem
+[Before] Alice(Private) have 409090931 nem:xem
+[Before] Alice(Public) have 999999 foo:bar
+[Before] Alice(Public) have 409089907.00019 nem:xem
+[Before] Bob(Public) have 409090570.99981 nem:xem
+[Before] Bob(Public) have 58 foo:bar
+tx2Signed.hash   : 40F55447D1BC00E73A56E6C1EA44E467CC022556F097EDF6A24E191FE647D285
+tx2Signed.signer : 1C650F49DD67EC50BFDEA40906D32CDE3C969BDF58837C7DA320829BDDE96150
+TransactionAnnounceResponse {
+  message: 'packet 9 was pushed to the network via /transaction' }
+[Before] Alice(Private) have 409090931 nem:xem
+[Before] Bob(Private) have 409090886 nem:xem
+[Before] Bob(Public) have 58 foo:bar
+[Before] Bob(Public) have 409090570.99981 nem:xem
+[Before] Alice(Public) have 999999 foo:bar
+[Before] Alice(Public) have 409089907.00019 nem:xem
+
+
+root@ubuntu-bionic:/opt/nem2-sdk# curl http://192.168.11.77:3100/account/C36F5BDDE8B2B586D17A4E6F4B999DD36EBD114023C1231E38ABCB1976B938C0/transactions | jq .[0]
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  7385  100  7385    0     0   901k      0 --:--:-- --:--:-- --:--:--  901k
+{
+  "meta": {
+    "height": [
+      28306,
+      0
+    ],
+    "hash": "40F55447D1BC00E73A56E6C1EA44E467CC022556F097EDF6A24E191FE647D285",
+    "merkleComponentHash": "40F55447D1BC00E73A56E6C1EA44E467CC022556F097EDF6A24E191FE647D285",
+    "index": 0,
+    "id": "5B1295F3FABE9E00013FF564"
+  },
+  "transaction": {
+    "signature": "131F41732A48C7EB60BD874E7FA304B53280AA8786C35F10EC7C889A03BE2A9526D4631BF8D8C42446C8A058B08584550A0E9233A9D60C15AABBD9C17800D901",
+    "signer": "1C650F49DD67EC50BFDEA40906D32CDE3C969BDF58837C7DA320829BDDE96150",
+    "version": 36867,
+    "type": 16972,
+    "fee": [
+      0,
+      0
+    ],
+    "deadline": [
+      4057924528,
+      15
+    ],
+    "duration": "10",
+    "mosaicId": "-3087871471161192663",
+    "amount": "1000000",
+    "hashAlgorithm": 0,
+    "secret": "VpMKFwjokY0HrLzy+CEDBxkaGsxJA1cRQqaiMeik97yzERxnMcoQzpV3dvgM02MbHwOeaiGHoqx83rSmYHZD3w==",
+    "recipient": "kFsRzZnbC8iVsAayDezf4Q00NEq+iHxg+A=="
+  }
+}
+
+
+
+root@ubuntu-bionic:/opt/nem2-sdk# node secretlock3.js b0932b16234f0f51d601
+[Before] Alice(Private) have 409090931 nem:xem
+[Before] Bob(Private) have 409090886 nem:xem
+[Before] Alice(Public) have 999999 foo:bar
+[Before] Alice(Public) have 409089907.00019 nem:xem
+[Before] Bob(Public) have 409090570.99981 nem:xem
+[Before] Bob(Public) have 58 foo:bar
+tx3Signed.hash   : 1D936C0582D290D606A4478CD33619C6BAB93F406210443287F9F90A559045C6
+tx3Signed.signer : C36F5BDDE8B2B586D17A4E6F4B999DD36EBD114023C1231E38ABCB1976B938C0
+TransactionAnnounceResponse {
+  message: 'packet 9 was pushed to the network via /transaction' }
+[Before] Alice(Private) have 409090932 nem:xem
+[Before] Bob(Private) have 409090886 nem:xem
+[Before] Alice(Public) have 999999 foo:bar
+[Before] Alice(Public) have 409089907.00019 nem:xem
+[Before] Bob(Public) have 409090570.99981 nem:xem
+[Before] Bob(Public) have 58 foo:bar
+
+
+
+root@ubuntu-bionic:/opt/nem2-sdk# curl http://192.168.11.77:3100/transaction/1D936C0582D290D606A4478CD33619C6BAB93F406210443287F9F90A559045C6 | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   682  100   682    0     0   166k      0 --:--:-- --:--:-- --:--:--  166k
+{
+  "meta": {
+    "height": [
+      28311,
+      0
+    ],
+    "hash": "1D936C0582D290D606A4478CD33619C6BAB93F406210443287F9F90A559045C6",
+    "merkleComponentHash": "1D936C0582D290D606A4478CD33619C6BAB93F406210443287F9F90A559045C6",
+    "index": 0,
+    "id": "5B12964AFABE9E00013FF56B"
+  },
+  "transaction": {
+    "signature": "009A246ECB160B9B39FCF16369E83A03AE9901C67D45B44D01108660A6D38359CD37FF95BDCD094A159621224172604E30784B000F433729A57D84D370529E0C",
+    "signer": "C36F5BDDE8B2B586D17A4E6F4B999DD36EBD114023C1231E38ABCB1976B938C0",
+    "version": 36867,
+    "type": 17228,
+    "fee": [
+      0,
+      0
+    ],
+    "deadline": [
+      4058018158,
+      15
+    ],
+    "hashAlgorithm": 0,
+    "secret": "VpMKFwjokY0HrLzy+CEDBxkaGsxJA1cRQqaiMeik97yzERxnMcoQzpV3dvgM02MbHwOeaiGHoqx83rSmYHZD3w==",
+    "proof": "sJMrFiNPD1HWAQ=="
+  }
+}
+
+
+root@ubuntu-bionic:/opt/nem2-sdk# node secretlock4.js sJMrFiNPD1HWAQ==
+[Before] Alice(Private) have 409090932 nem:xem
+[Before] Bob(Private) have 409090886 nem:xem
+[Before] Bob(Public) have 409090570.99981 nem:xem
+[Before] Bob(Public) have 58 foo:bar
+[Before] Alice(Public) have 999999 foo:bar
+[Before] Alice(Public) have 409089907.00019 nem:xem
+tx4Signed.hash   : 2E4F92750D1249C3E30920CCF10EE7A661737B22D206FE80D8D28ED82B1FD7C4
+tx4Signed.signer : 3390BF02D2BB59C8722297FF998CE89183D0906E469873284C091A5CDC22FD57
+TransactionAnnounceResponse {
+  message: 'packet 9 was pushed to the network via /transaction' }
+[Before] Alice(Private) have 409090932 nem:xem
+[Before] Bob(Private) have 409090886 nem:xem
+[Before] Bob(Public) have 59 foo:bar
+[Before] Bob(Public) have 409090570.99981 nem:xem
+[Before] Alice(Public) have 999999 foo:bar
+[Before] Alice(Public) have 409089907.00019 nem:xem
+
+
+root@ubuntu-bionic:/opt/nem2-sdk# curl http://192.168.11.77:3000/transaction/2E4F92750D1249C3E30920CCF10EE7A661737B22D2
+06FE80D8D28ED82B1FD7C4 | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   682  100   682    0     0  56833      0 --:--:-- --:--:-- --:--:-- 62000
+{
+  "meta": {
+    "height": [
+      38875,
+      0
+    ],
+    "hash": "2E4F92750D1249C3E30920CCF10EE7A661737B22D206FE80D8D28ED82B1FD7C4",
+    "merkleComponentHash": "2E4F92750D1249C3E30920CCF10EE7A661737B22D206FE80D8D28ED82B1FD7C4",
+    "index": 0,
+    "id": "5B12973880FDB3000135B1E0"
+  },
+  "transaction": {
+    "signature": "64E8DE743FE5BAA46CA1BEEE19574788E4B9DB9535970D20CEB8E704A892C867EAE60FF25CF476AB3430C66BD65E94B531C367480D2F52C833EF93B6782E680B",
+    "signer": "3390BF02D2BB59C8722297FF998CE89183D0906E469873284C091A5CDC22FD57",
+    "version": 36867,
+    "type": 17228,
+    "fee": [
+      0,
+      0
+    ],
+    "deadline": [
+      4058264279,
+      15
+    ],
+    "hashAlgorithm": 0,
+    "secret": "VpMKFwjokY0HrLzy+CEDBxkaGsxJA1cRQqaiMeik97yzERxnMcoQzpV3dvgM02MbHwOeaiGHoqx83rSmYHZD3w==",
+    "proof": "sJMrFiNPD1HWAQ=="
+  }
+}
