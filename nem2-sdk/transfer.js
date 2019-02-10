@@ -34,7 +34,7 @@ const transferTransaction = TransferTransaction.create(
     Deadline.create(),
     Address.createFromRawAddress(recipientAddress),
     [new Mosaic(new MosaicId('nem:xem'), UInt64.fromUint(10000000))],
-    PlainMessage.create(''),
+    PlainMessage.create('0000111122223333'),
     NetworkType.MIJIN_TEST,
 );
 
@@ -47,7 +47,6 @@ const account = Account.createFromPrivateKey(privateKey,NetworkType.MIJIN_TEST);
 const signedTransaction = account.sign(transferTransaction);
 
 const transactionHttp = new TransactionHttp('http://192.168.11.77:3000');
-
 transactionHttp.announce(signedTransaction).subscribe(x => console.log(x),
     err => console.error(err));
 

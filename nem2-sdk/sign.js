@@ -6,8 +6,7 @@ public: 5D9513282B65A12A1B68DCB67DB64245721F7AE7822BE441FE813173803C512C
 address: SBWEUWON6IBHCW5IC4EI6V6SMTVJGCJWGLF57UGK
 */
 
-// const signData = `03905441809698000000000077A6015D1000000090758EB47C28D6143BAA3DE6A8D9C319B503A1BFD8E789E9E20100030043B884C898706C138096980000000000C319EE771243D835002D31010000000029CF5FD941AD25D58096980000000000`;
-const signData = `FE722819BF368BD383EEC3308EA1D75BDD0A55144C703FFDAFC5F726C1971DCA`;
+const signData = `AA8B8731D9C87C27CB27B349ACC0ABEE36596A8494967D9C7C05C544A07B73FA`;
 
 
 const privateKey = '31B96EEB0C7FD6F8FB6B4ED09A9EB142A42B194AFBEB9EB52F0B79889F22326E';
@@ -16,7 +15,9 @@ const keypair = nem2lib.KeyPair.createKeyPairFromPrivateKeyString(privateKey);
 const signature = nem2lib.KeyPair.sign(keypair, signData);
 
 
-console.log('publicKey: ' + nem2lib.convert.uint8ToHex(keypair.publicKey));
-console.log('signature: ' + nem2lib.convert.uint8ToHex(signature));
+// console.log('publicKey: ' + nem2lib.convert.uint8ToHex(keypair.publicKey));
+// console.log('signature: ' + nem2lib.convert.uint8ToHex(signature));
 
+const jsonData = {"parentHash": signData, "signature": nem2lib.convert.uint8ToHex(signature), "signer": nem2lib.convert.uint8ToHex(keypair.publicKey)};
 
+console.log(JSON.stringify(jsonData));

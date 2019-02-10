@@ -1,4 +1,5 @@
 const nem2Sdk = require("nem2-sdk");
+const op = require('rxjs/operators');
 
 const Address = nem2Sdk.Address,
     Deadline = nem2Sdk.Deadline,
@@ -16,13 +17,15 @@ const Address = nem2Sdk.Address,
     LockFundsTransaction = nem2Sdk.LockFundsTransaction,
     Listener = nem2Sdk.Listener;
 
+const filter = op.filter,
+    flatMap = op.flatMap;
 
 
 // Replace with private key
-const alicePrivateKey = '31B96EEB0C7FD6F8FB6B4ED09A9EB142A42B194AFBEB9EB52F0B79889F22326E';
+const alicePrivateKey = 'BA46F91D7BCD40B6482E138F0D3D53A29F0A6097B5C4586C6ABD81A3BA3A2DAD';
 
 // Replace with public key
-const ticketDistributorPublicKey = '5D9513282B65A12A1B68DCB67DB64245721F7AE7822BE441FE813173803C512C';
+const ticketDistributorPublicKey = 'C36F5BDDE8B2B586D17A4E6F4B999DD36EBD114023C1231E38ABCB1976B938C0';
 
 const aliceAccount = Account.createFromPrivateKey(alicePrivateKey, NetworkType.MIJIN_TEST);
 const ticketDistributorPublicAccount = PublicAccount.createFromPublicKey( ticketDistributorPublicKey, NetworkType.MIJIN_TEST);
@@ -65,39 +68,51 @@ const lockFundsTransaction = LockFundsTransaction.create(
 
 const lockFundsTransactionSigned = aliceAccount.sign(lockFundsTransaction);
 
-const transactionHttp = new TransactionHttp('http://localhost:3000');
+// const url = "http://catapult-test.44uk.net:3000";
+// const url = 'http://192.168.11.77:3000'
+const url = 'https://planethouki.ddns.net:3000';
+
+const transactionHttp = new TransactionHttp(url);
 
 
 
-transactionHttp.announce(lockFundsTransactionSigned).subscribe(x => console.log(x),
-err => console.error(err));
+// transactionHttp.announce(lockFundsTransactionSigned).subscribe(x => console.log(x),
+// err => console.error(err));
 
-setTimeout(() => transactionHttp.announceAggregateBonded(signedTransaction).subscribe(x => {console.log(x); console.log('foo')},
-err => console.error(err)),30000);
+// setTimeout(() => transactionHttp.announceAggregateBonded(signedTransaction).subscribe(x => {console.log(x); console.log('foo')},
+// err => console.error(err)),30000);
 
 
 
 // // announce signed transaction
-// const listener = new Listener('http://localhost:3000');
+const listener = new Listener(url);
 
-// listener.open().then(() => {
+listener.open().then(() => {
 
-//     transactionHttp.announce(lockFundsTransactionSigned).subscribe(x => console.log(x),
-//         err => console.error(err));
+    transactionHttp.announce(lockFundsTransactionSigned).subscribe(x => console.log(x),
+        err => console.error(err));
 
-//     listener.confirmed(aliceAccount.address)
-//         .filter((transaction) => transaction.transactionInfo !== undefined
-//             && transaction.transactionInfo.hash === lockFundsTransactionSigned.hash)
-//         .flatMap(ignored => transactionHttp.announceAggregateBonded(signedTransaction))
-//         .subscribe(announcedAggregateBonded => console.log(announcedAggregateBonded),
-//             err => console.error(err));
+    listener.confirmed(aliceAccount.address)
+        .pipe(
+            filter((transaction) => transaction.transactionInfo !== undefined
+            && transaction.transactionInfo.hash === lockFundsTransactionSigned.hash),
+            flatMap(ignored => transactionHttp.announceAggregateBonded(signedTransaction))
+        )
+        .subscribe(
+            announcedAggregateBonded => {
+                console.log(announcedAggregateBonded);
+                listener.close();
+            },
+            err => console.error(err));
 
 
-//     // listener.confirmed(aliceAccount.address)
-//     //     .flatMap(ignored => transactionHttp.announceAggregateBonded(signedTransaction))
-//     //     .subscribe(announcedAggregateBonded => console.log(announcedAggregateBonded),
-//     //         err => console.error(err));
-// });
+    // listener.confirmed(aliceAccount.address)
+    //     .flatMap(ignored => transactionHttp.announceAggregateBonded(signedTransaction))
+    //     .subscribe(announcedAggregateBonded => console.log(announcedAggregateBonded),
+    //         err => console.error(err));
+}).catch((error) => {
+    console.error(error);
+});
 
 
 console.log('lockFundsTransactionSigned.hash  : ' + lockFundsTransactionSigned.hash);

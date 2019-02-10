@@ -56,7 +56,7 @@ const bobPublicAccount = PublicAccount.createFromPublicKey(bobPublicKey, Network
 
 const toAliceXEM = 4;
 const toBobXEM = 6;
-const secret = "D1B6CC23A35D3832942ACFA8A8152EF04D2032452BCF29396D6D48A45848691CE82EC6AD412DE1113D99D7663F32E5721E7ACB8018A9F263D7DF0BE3114BCEDE";
+const secret = "EC71B5E8DCC52D266AF3DB3799BC6B034EABA8EB9F6248F0A2733ABC36D77D84E44049BE147EC8D2483BCE59F69B4D6D36376CA84B3F39102C4990108D97AC7D";
 
 // Multisig PublicKey
 const multisigAccountPublicKey = '3A0E4A9C6A76EEB44AD5691EE0B3642FB2874D7C368488077E4900F75709BF63';
@@ -117,17 +117,17 @@ const lockFundsTransactionSigned = aliceAccount.sign(lockFundsTransaction);
 
 
 
-const transactionHttp = new TransactionHttp('http://192.168.11.77:3000');
+// const transactionHttp = new TransactionHttp('http://192.168.11.77:3000');
 
-transactionHttp
-    .announce(lockFundsTransactionSigned)
-    .subscribe(x => console.log(x), err => console.error(err));
+// transactionHttp
+//     .announce(lockFundsTransactionSigned)
+//     .subscribe(x => console.log(x), err => console.error(err));
 
-setTimeout(() => 
-    transactionHttp
-        .announceAggregateBonded(signedTransaction)
-        .subscribe(x => console.log(x), err => console.error(err))
-,30000);
+// setTimeout(() => 
+//     transactionHttp
+//         .announceAggregateBonded(signedTransaction)
+//         .subscribe(x => console.log(x), err => console.error(err))
+// ,30000);
 
 
 console.log('lockFundsTransactionSigned.hash   : ' + lockFundsTransactionSigned.hash);

@@ -1,0 +1,24 @@
+{
+  "name": "nem2sdk1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "addressToBase32.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/planethouki/nem2sdk1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/planethouki/nem2sdk1/issues"
+  },
+  "homepage": "https://github.com/planethouki/nem2sdk1#readme",
+  "dependencies": {
+    "nem2-library": "^0.9.5",
+    "nem2-sdk": "^0.10.1",
+    "rxjs": "^6.3.3"
+  }
+}

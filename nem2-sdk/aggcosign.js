@@ -25,11 +25,16 @@ const cosignAggregateBondedTransaction = (transaction, account)  => {
 };
 
 // Replace with private key
-const privateKey = '7808B5B53ECF24E40BE17B8EC3D0EB5F7C3F3D938E0D95A415F855AD4C27B2A4';
+// const privateKey = 'BA46F91D7BCD40B6482E138F0D3D53A29F0A6097B5C4586C6ABD81A3BA3A2DAD';
+const privateKey = '8CBA73B9DF31D85DCFA4B9E1D3B7A88E5A5F32C930FCC45FE5A457619F3E6687';
 
 const account = Account.createFromPrivateKey(privateKey, NetworkType.MIJIN_TEST);
-const accountHttp = new AccountHttp('http://localhost:3000');
-const transactionHttp = new TransactionHttp('http://localhost:3000');
+
+const url = "http://catapult-test.44uk.net:3000";
+// const url = 'http://192.168.11.77:3000'
+
+const accountHttp = new AccountHttp(url);
+const transactionHttp = new TransactionHttp(url);
 
 accountHttp.aggregateBondedTransactions(account.publicAccount)
     .flatMap((_) => _)

@@ -58,8 +58,8 @@ const carolToBobTx = TransferTransaction.create(
 
 const aggregateTransaction = AggregateTransaction.createBonded(Deadline.create(),
     [
-        carolToBobTx.toAggregate(carolPublicAccount),
         aliceTocarolTx.toAggregate(aliceAccount.publicAccount),
+        carolToBobTx.toAggregate(carolPublicAccount),
     ],
     NetworkType.MIJIN_TEST);
 

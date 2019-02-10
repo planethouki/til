@@ -76,8 +76,10 @@ const aliceAddressPublic = Address.createFromRawAddress('SBWEUWON6IBHCW5IC4EI6V6
 const bobAddressPrivate = Address.createFromRawAddress('SCBCMLVDJBXARCOI6XSKEU3ER2L6HH7UBEPTENGQ');
 const bobAddressPublic = Address.createFromRawAddress('SB2Y5ND4FDLBIO5KHXTKRWODDG2QHIN73DTYT2PC');
 
-const urlPublic = 'http://192.168.11.77:3000';
-const urlPrivate = 'http://192.168.11.77:3100';
+// const urlPublic = 'http://192.168.11.77:3000';
+// const urlPrivate = 'http://192.168.11.77:3100';
+const urlPublic = "http://catapult48gh23s.xyz:3000"
+const urlPrivate = "http://catapult-test.44uk.net:3000"
 
 const listenerPublic = new Listener(urlPublic);
 const transactionHttpPublic = new TransactionHttp(urlPublic);
@@ -93,7 +95,7 @@ const mosaicHttpPrivate = new MosaicHttp(urlPrivate);
 const namespaceHttpPrivate = new NamespaceHttp(urlPrivate);
 const mosaicServicePrivate = new MosaicService(accountHttpPrivate, mosaicHttpPrivate, namespaceHttpPrivate);
 
-const alisBobMosaicsAmountView = () => {
+const alisBobMosaicsAmountView = (prefix) => {
     const mosaicsAmountViewFromAddress = (logPrefix, mosaicService, address) => {
         mosaicService.mosaicsAmountViewFromAddress(address)
             .flatMap((_) => _)
@@ -102,16 +104,16 @@ const alisBobMosaicsAmountView = () => {
                 err => console.error(err)
             );
     };
-    mosaicsAmountViewFromAddress('[Before] Alice(Public) have', mosaicServicePublic, aliceAccountPublic.address);
-    mosaicsAmountViewFromAddress('[Before] Alice(Private) have', mosaicServicePrivate, aliceAccountPrivate.address);
-    mosaicsAmountViewFromAddress('[Before] Bob(Public) have', mosaicServicePublic, bobAccountPublic.address);
-    mosaicsAmountViewFromAddress('[Before] Bob(Private) have', mosaicServicePrivate, bobAccountPrivate.address);
+    mosaicsAmountViewFromAddress(`[${prefix}] Alice(Public) have`, mosaicServicePublic, aliceAccountPublic.address);
+    mosaicsAmountViewFromAddress(`[${prefix}] Alice(Private) have`, mosaicServicePrivate, aliceAccountPrivate.address);
+    mosaicsAmountViewFromAddress(`[${prefix}] Bob(Public) have`, mosaicServicePublic, bobAccountPublic.address);
+    mosaicsAmountViewFromAddress(`[${prefix}] Bob(Private) have`, mosaicServicePrivate, bobAccountPrivate.address);
 };
 
 // ***************************************************
 //             Before
 // ***************************************************
-alisBobMosaicsAmountView();
+alisBobMosaicsAmountView("Before");
 
 
 
@@ -144,7 +146,7 @@ setTimeout(() => {
     // Alice creates creates TX1 SecretLockTransaction{ H(x), B, MosaicId, Amount, valid for 96h }
     const tx1 = SecretLockTransaction.create(
         Deadline.create(),
-        new Mosaic(new MosaicId('foo:bar'), UInt64.fromUint(1)),
+        new Mosaic(new MosaicId('nem:xem'), UInt64.fromUint(1000000)),
         UInt64.fromUint(60), //officially 96h
         HashType.SHA3_512,
         secret,
@@ -212,7 +214,7 @@ setTimeout(() => {
 // ***************************************************
 //             Middle
 // ***************************************************
-setTimeout(alisBobMosaicsAmountView, 19000);
+setTimeout(alisBobMosaicsAmountView, 19000, "Middle");
 
 
 
@@ -284,4 +286,4 @@ setTimeout(() => {
 // ***************************************************
 //             After
 // ***************************************************
-setTimeout(alisBobMosaicsAmountView, 50000);
+setTimeout(alisBobMosaicsAmountView, 50000, "After");
