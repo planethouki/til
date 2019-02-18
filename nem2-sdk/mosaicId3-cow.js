@@ -33,10 +33,17 @@ const Address = nem2Sdk.Address,
 const sha3_512 = jssha3.sha3_512;
 const sha3_256 = jssha3.sha3_256;
 
+const publicKey = '7F78559C556642FE132616910B1C9F2C36BC144D2D3A9E909092D64A0D0DE0DE';
 
-const mosaicXEM = XEM.createAbsolute(0)
-console.log(`xem: ${mosaicXEM.id.toHex()} ${mosaicXEM.id.id.toDTO()}`)
-// xem: d525ad41d95fcf29 3646934825,3576016193
+// publicKey = B4F12E7C9F6946091E2CB8B6D3A12B50D17CCBBF646386EA27CE2946A7423DCF
+// currencyMosaicId = 0x0DC6'7FBE'1CAD'29E3
+// harvestingMosaicId = 0x2651'4E2A'1EF3'3824
+
+// cat:currency (119E15661E9B2758)
+// Owner: 7F78559C556642FE132616910B1C9F2C36BC144D2D3A9E909092D64A0D0DE0DE
+// cat:harvest (2AECBFD76AE7411B)
+// Owner: 7F78559C556642FE132616910B1C9F2C36BC144D2D3A9E909092D64A0D0DE0DE
+
 
 function endian(hex) {
     const uint8arr = nem2lib.convert.hexToUint8(hex)
@@ -49,10 +56,14 @@ function generateHash(hex) {
     return hash.hex().toUpperCase();
 }
 
-// nem: 84b3552d375ffa4b 929036875,2226345261
-const xem = "78656d"
-const hoge = generateHash(endian("84b3552d375ffa4b") + xem)
+const hoge = generateHash(endian("00000000") + publicKey)
 console.log(hoge.substring(0,16))
 console.log(endian(hoge.substring(8,16)) + "," + endian(hoge.substring(0,8)))
-// 29CF5FD941AD25D5
-// D525AD41,D95FCF29
+// 58279B1E66159E11
+// 119E1566,1E9B2758
+
+const fuga = generateHash(endian("00000001") + publicKey)
+console.log(fuga.substring(0,16))
+console.log(endian(fuga.substring(8,16)) + "," + endian(fuga.substring(0,8)))
+// 1B41E76AD7BFECAA
+// AAECBFD7,6AE7411B
