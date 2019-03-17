@@ -1,11 +1,7 @@
 <?php
 // https://marunouchi-tech.i-studio.co.jp/4372/
 
-//login.php
-define('TWITTER_API_KEY', 'アプリのAPIキー'); 　//Consumer Key (API Key)
-define('TWITTER_API_SECRET', 'アプリのAPIシークレット');　　//Consumer Secret (API Secret)
-define('CALLBACK_URL', 'http:// ・・サイトのドメイン・・ /callback.php');　 //Twitterから認証した時に飛ぶページ場所
-
+require_once('token.php');
 
 //login.php
 //TwitterOAuthのインスタンスを生成し、Twitterからリクエストトークンを取得する
