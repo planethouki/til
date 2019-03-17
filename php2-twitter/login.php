@@ -1,7 +1,12 @@
 <?php
 // https://marunouchi-tech.i-studio.co.jp/4372/
 
+require "twitteroauth/autoload.php";
+use Abraham\TwitterOAuth\TwitterOAuth;
+
 require_once('token.php');
+
+session_start();
 
 //login.php
 //TwitterOAuthのインスタンスを生成し、Twitterからリクエストトークンを取得する
