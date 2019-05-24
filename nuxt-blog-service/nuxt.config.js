@@ -2,6 +2,7 @@ import pkg from './package'
 
 export default {
   mode: 'universal',
+  srcDir: 'app',
 
   /*
   ** Headers of the page
@@ -27,14 +28,18 @@ export default {
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    '~/assets/common.css'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    {
+      src: '@/plugins/element-ui',
+      ssr: false
+    }
   ],
 
   /*
@@ -49,6 +54,7 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'https://nuxt-blog-service-ebab6.firebaseio.com'
   },
 
   /*
@@ -56,11 +62,15 @@ export default {
   */
   build: {
     transpile: [/^element-ui/],
-    
+
     /*
     ** You can extend webpack config here
     */
     extend(config, ctx) {
     }
+  },
+
+  router: {
+    middleware: ['auth-cookie']
   }
 }
