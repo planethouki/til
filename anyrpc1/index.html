@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+</head>
+<body>
+
+<div style="max-width: 700px; padding: 1rem; margin: 0 auto;">
+    <form class="pure-form">
+        <fieldset>
+            <legend>1 wei Transfer</legend>
+
+            <input type="Text" placeholder="Address" id="address">
+
+            <button type="button" class="pure-button pure-button-primary" onclick="app();">Submit</button>
+        </fieldset>
+    </form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.37/dist/web3.min.js"></script>
+<script>
+    const app = async function() {
+        const web3js = new Web3(window.ethereum);
+        await window.ethereum.enable();
+        web3js.eth.defaultAccount = (await web3js.eth.getAccounts())[0];
+        web3js.eth.signTransaction({
+            gasPrice: "20000000000",
+            gas: "21000",
+            to: web3js.eth.defaultAccount,
+            value: "1",
+            data: ""
+        }).then(console.log).catch(console.error);
+    };
+</script>
+</body>
+</html>
