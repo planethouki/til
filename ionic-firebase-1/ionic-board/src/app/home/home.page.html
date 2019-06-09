@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ionic 掲示板
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form name="form">
+    <ion-list class="inputBlock">
+      <ion-item margin-bottom class="textBlock">
+        <ion-label position="floating">メッセージ</ion-label>
+        <ion-input name="message" type="text"></ion-input>
+      </ion-item>
+      <ion-button
+        type="submit" expand="full" block class="submit">
+        投稿
+      </ion-button>
+    </ion-list>
+  </form>
+
+  <ion-card class="singlePost">
+    <ion-item>
+      <h2 padding-vertical>Akira Yanagihara</h2>
+    </ion-item>
+    <ion-card-content>
+      <div margin-bottom>ここに入力されたメッセージが入ります</div>
+      <ion-row>
+        <ion-col size="6" size-sm>
+          <ion-button fill="clear" size="small">
+            <ion-icon name="text"></ion-icon>
+            <div>コメント</div>
+          </ion-button>
+        </ion-col>
+        <ion-col size="6" size-sm>
+          <ion-button fill="clear" size="small">
+            <ion-icon name="create"></ion-icon>
+            <div>編集</div>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button fill="clear" size="small">
+            <ion-icon name="trash"></ion-icon>
+            <div>削除</div>
+          </ion-button>
+        </ion-col>
+        <ion-col size="6" size-sm class="postedTime">
+          <ion-note>2分前</ion-note>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
