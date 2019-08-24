@@ -37,6 +37,7 @@ const aggregateTransaction1 = AggregateTransaction.createBonded(
         transferTransaction1.toAggregate(sender.publicAccount)
     ],
     NetworkType.MIJIN_TEST,
+    [],
     UInt64.fromUint(20000)
 )
 
