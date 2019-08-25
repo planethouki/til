@@ -15,12 +15,15 @@ const {
      NetworkType.MIJIN_TEST
 )
 
+// const value = new Uint8Array(new Buffer('Hello World!'))
+const value = new Uint8Array([0,0,0,0,0,0,0,0,0,0,0,0,33])
+
 const accountMetadataTransaction = AccountMetadataTransaction.create(
     Deadline.create(),
     sender.publicKey,
-    UInt64.fromUint(3567),
-    -1,
-    new Uint8Array([0,0,0,0,0,0,0,0,0,0,0,0,33]),
+    UInt64.fromUint(3568),
+    1,
+    value,
     NetworkType.MIJIN_TEST,
     UInt64.fromUint(0)
 )
