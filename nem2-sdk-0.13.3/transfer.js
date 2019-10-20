@@ -11,29 +11,37 @@ const {
     UInt64
 } = require('nem2-sdk')
 
-process.env.HOST = ''
+process.env.HOST = 'http://jp5.nemesis.land:3000'
+process.env.GENERATION_HASH = '17FA4747F5014B50413CCF968749604D728D7065DC504291EEE556899A534CBB'
+process.env.PRIVATE_KEY = '25B3F54217340F7061D02676C4B928ADB4395EB70A2A52D2A11E2F4AE011B03E'
+process.env.CURRENCY_NAMESPACE = 'nem.xem'
 
-const recipient = Account.generateNewAccount(NetworkType.MIJIN_TEST)
+// process.env.HOST = 'http://jp5.nemesis.land:3000'
+// process.env.GENERATION_HASH = 'A8204C0DA4535DE01B3B51CF54D9D20D663059790C4422A83B7A079C596FE01F'
+// process.env.PRIVATE_KEY = '3C9C49B0D682FBA7B5BBE1C75B7CDCCFB2A81707946AF5913CA9938EAD7F33EA'
+// process.env.CURRENCY_NAMESPACE = 'cat.currency'
+
 const sender = Account.createFromPrivateKey(
-    '3C9C49B0D682FBA7B5BBE1C75B7CDCCFB2A81707946AF5913CA9938EAD7F33EA',
+    process.env.PRIVATE_KEY,
     NetworkType.MIJIN_TEST
 )
 
 async function exec() {
     for (let i = 0; i < 100000; i++) {
+        const recipient = Account.generateNewAccount(NetworkType.MIJIN_TEST)
 
         const transferTransaction = TransferTransaction.create(
             Deadline.create(),
             recipient.address,
-            [new Mosaic(new NamespaceId('cat.currency'), UInt64.fromUint(100))],
+            [new Mosaic(new NamespaceId(process.env.CURRENCY_NAMESPACE), UInt64.fromUint(100))],
             new PlainMessage(''),
             NetworkType.MIJIN_TEST,
-            UInt64.fromUint(100000)
+            UInt64.fromUint(20000)
         )
         
         const signedTransaction = sender.sign(
             transferTransaction,
-            'A8204C0DA4535DE01B3B51CF54D9D20D663059790C4422A83B7A079C596FE01F'
+            process.env.GENERATION_HASH
         );
         
         const transactionHttp = new TransactionHttp(process.env.HOST);
