@@ -26,17 +26,24 @@ const sender = Account.createFromPrivateKey(
     NetworkType.MIJIN_TEST
 )
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
 async function exec() {
     for (let i = 0; i < 100000; i++) {
-        const recipient = Account.generateNewAccount(NetworkType.MIJIN_TEST)
+        // const recipient = Account.generateNewAccount(NetworkType.MIJIN_TEST)
+        const recipient = sender
 
         const transferTransaction = TransferTransaction.create(
             Deadline.create(),
             recipient.address,
-            [new Mosaic(new NamespaceId(process.env.CURRENCY_NAMESPACE), UInt64.fromUint(100))],
+            [new Mosaic(new NamespaceId(process.env.CURRENCY_NAMESPACE), UInt64.fromUint(0))],
             new PlainMessage(''),
             NetworkType.MIJIN_TEST,
-            UInt64.fromUint(20000)
+            UInt64.fromUint(getRandomInt(141, 1000) ** 2)
         )
         
         const signedTransaction = sender.sign(
@@ -49,7 +56,7 @@ async function exec() {
     
         console.log(signedTransaction.hash);
     
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 15000));
     }
 }
 
