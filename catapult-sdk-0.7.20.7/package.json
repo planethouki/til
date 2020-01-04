@@ -1,0 +1,17 @@
+{
+  "name": "catapult-sdk-0.7.20.7",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "catapult-sdk": "link:catapult-sdk",
+    "log4js": "^6.1.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
