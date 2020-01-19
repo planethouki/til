@@ -1,0 +1,26 @@
+{
+  "name": "erc777-test",
+  "version": "1.0.0",
+  "description": "",
+  "priavte": true,
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "compile": "truffle compile",
+    "migrate": "truffle migrate",
+    "migrate:ropsten": "truffle migrate --network ropsten",
+    "test": "truffle test",
+    "flattern": "truffle-flattener contracts/PToken.sol > build/contracts/PToken.sol"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^2.4.0",
+    "@truffle/hdwallet-provider": "^1.0.29",
+    "dotenv": "^8.2.0",
+    "truffle": "^5.1.9",
+    "truffle-flattener": "^1.4.2"
+  }
+}
