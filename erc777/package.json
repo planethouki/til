@@ -10,7 +10,8 @@
     "compile": "truffle compile",
     "migrate:ropsten": "truffle migrate --network ropsten",
     "test": "truffle test",
-    "flattern": "truffle-flattener contracts/AToken.sol > build/contracts/AToken.sol"
+    "flattern": "truffle-flattener contracts/AToken.sol > build/contracts/AToken.sol",
+    "encode-constructor-params": "truffle exec scripts/encodeConstructorParams.js --network ropsten"
   },
   "keywords": [],
   "author": "",
