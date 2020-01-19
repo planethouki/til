@@ -8,10 +8,9 @@
   },
   "scripts": {
     "compile": "truffle compile",
-    "migrate": "truffle migrate",
     "migrate:ropsten": "truffle migrate --network ropsten",
     "test": "truffle test",
-    "flattern": "truffle-flattener contracts/PToken.sol > build/contracts/PToken.sol"
+    "flattern": "truffle-flattener contracts/AToken.sol > build/contracts/AToken.sol"
   },
   "keywords": [],
   "author": "",
