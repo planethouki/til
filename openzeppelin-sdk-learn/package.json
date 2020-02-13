@@ -1,0 +1,23 @@
+{
+  "name": "gsn-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "networks.js",
+  "scripts": {
+    "test": "mocha --exit --recursive test",
+    "ganache": "ganache-cli --deterministic"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^2.4.0",
+    "@openzeppelin/test-environment": "^0.1.2",
+    "chai": "^4.2.0",
+    "ganache-cli": "^6.8.2",
+    "mocha": "^7.0.1"
+  },
+  "dependencies": {
+    "@openzeppelin/upgrades": "^2.6.0"
+  }
+}
