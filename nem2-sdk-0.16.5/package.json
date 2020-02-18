@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc validateTransactionInBlock.ts"
+    "tsc1": "tsc validateTransactionInBlock.ts && node validateTransactionInBlock.js",
+    "tsc2": "tsc generateAddress.ts && generateAddress.js",
+    "tsc3": "tsc receipt1.ts && node receipt1.js"
   },
   "keywords": [],
   "author": "",
