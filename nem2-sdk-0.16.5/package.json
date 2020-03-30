@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc1": "tsc validateTransactionInBlock.ts && node validateTransactionInBlock.js",
     "tsc2": "tsc generateAddress.ts && generateAddress.js",
-    "tsc3": "tsc receipt1.ts && node receipt1.js"
+    "tsc3": "tsc receipt1.ts && node receipt1.js",
+    "tsc4": "tsc rcosignature1.ts && node cosgignature1.js"
   },
   "keywords": [],
   "author": "",

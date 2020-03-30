@@ -39,7 +39,7 @@ exports.__esModule = true;
 var nem2_sdk_1 = require("nem2-sdk");
 var js_sha3_1 = require("js-sha3");
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var receiptHttp, statements, transactionStatements, receiptHash0, statementVersion, statementType, statemenetSource, receipt0, receipt1, manualReceiptHash;
+    var receiptHttp, statements, transactionStatements, receiptHash0, statementVersion, statementType, statemenetSource, receipt0, receipt1, manualReceiptHash, receiptRoot;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -51,17 +51,20 @@ var js_sha3_1 = require("js-sha3");
                 receiptHash0 = transactionStatements[0].generateHash();
                 console.log(receiptHash0);
                 statementVersion = '0100';
-                statementType = '43e1';
-                statemenetSource = '0000000000000000';
-                receipt0 = '01004321a84582052890a95139d2b80500000000c151a3a63e7aff6bdb78bf40e8a78c772ddb36e2306401771b0bfdcd4dd3b787';
-                receipt1 = '01004351a84582052890a95139d2b80500000000';
+                statementType = '43f2';
+                statemenetSource = 'eeaff441ba994be7';
+                receipt0 = '0500000000000000a84582052890a951';
+                receipt1 = '';
                 manualReceiptHash = hash(statementVersion +
                     statementType +
                     statemenetSource +
                     receipt0 +
                     receipt1);
-                console.log(manualReceiptHash);
+                console.log(manualReceiptHash.toUpperCase());
                 console.log(manualReceiptHash.toUpperCase() === receiptHash0);
+                receiptRoot = hash('8EA9EEA135F10FECFA55ED908593C6A3D24E672F1259E9DA776554BF67E722F7' +
+                    'A91F73FBD1169356F3D9D83D86DCB9646356947BADDB18A46169B2C351E105A7');
+                console.log(receiptRoot.toUpperCase());
                 return [2 /*return*/];
         }
     });
