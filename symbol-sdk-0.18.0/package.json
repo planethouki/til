@@ -1,0 +1,15 @@
+{
+  "name": "symbol-sdk-0.18.0",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nem2-sdk": "^0.17.0"
+  }
+}
