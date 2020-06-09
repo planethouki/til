@@ -11,3 +11,4 @@ const initiator = Account.createFromPrivateKey(
 )
 
 console.log(initiator.address.plain());
+console.log(initiator.publicAccount.publicKey);
