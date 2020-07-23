@@ -1,0 +1,16 @@
+{
+  "name": "symbol-sdk-0.20.6",
+  "version": "1.0.0",
+  "main": "account.js",
+  "dependencies": {
+    "symbol-sdk": "^0.20.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

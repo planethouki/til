@@ -3,7 +3,7 @@ const {
     Convert,
     NetworkType,
     KeyPair
-} = require('nem2-sdk');
+} = require('symbol-sdk');
 
 const networkType = NetworkType.TEST_NET
 

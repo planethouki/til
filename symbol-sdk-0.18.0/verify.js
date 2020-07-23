@@ -12,9 +12,14 @@ const initiator = Account.createFromPrivateKey(
     networkType
 )
 
-// const initiator = Account.generateNewAccount(networkType)
+const convertedSignature = Convert.hexToUint8(
+    ''
+)
+const convertedData = Convert.hexToUint8(
+    ''
+)
 
-console.log(initiator.privateKey)
-console.log(initiator.address.plain())
-console.log(initiator.address.pretty())
-console.log(initiator.publicAccount.publicKey)
+
+console.log(
+    KeyPair.verify(Convert.hexToUint8(initiator.publicKey), convertedData, convertedSignature)
+)
