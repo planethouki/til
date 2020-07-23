@@ -1,0 +1,20 @@
+{
+  "name": "symbol-token1",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "js-yaml": "^3.14.0",
+    "rxjs": "^6.5.5",
+    "symbol-hd-wallets": "^0.11.0",
+    "symbol-sdk": "^0.19.2",
+    "symbol-token-standards": "^0.5.2",
+    "symbol-uri-scheme": "^0.4.5"
+  }
+}
