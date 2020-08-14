@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "account.js",
   "dependencies": {
-    "symbol-sdk": "^0.20.6"
+    "symbol-sdk": "^0.20.6",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
   },
   "devDependencies": {},
   "scripts": {
