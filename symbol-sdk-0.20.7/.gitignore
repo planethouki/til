@@ -1,2 +1,8 @@
 *.log
+*.log.gz
 *audit.json
+
+chromedriver.exe
+chromedriver_win32.zip
+
+.env

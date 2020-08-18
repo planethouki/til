@@ -12,7 +12,7 @@ const {
 const winston = require('winston');
 require('winston-daily-rotate-file');
 
-const PRIVATE_KEY = '13E123227BA91F170F38DA4C6A251B48F4B903271D803A7FCEEDFFACB1118198'
+const PRIVATE_KEY = '1AC080B1FB4BC4388BE0175175D08AD50089DF0E7D4FDF2103FC7ED66A832CEC'
 const MOSAIC_ID = "5E62990DCAC5BE8A"
 const GENERATION_HASH = '1DFB2FAA9E7F054168B0C5FCB84F4DEB62CC2B4D317D861F3168D161F54EA78B'
 const NODE_URL = 'http://api-01.us-east-1.096x.symboldev.network:3000'
@@ -68,13 +68,16 @@ const mainLoop = async () => {
     const transactionHttp = repositoryFactory.createTransactionRepository();
 
     while (true) {
+        // const fee = UInt64.fromUint(2000000 * Math.random() + 20100)
+        const fee = UInt64.fromUint(10000000000 * Math.random())
+
         const transferTransaction = TransferTransaction.create(
             Deadline.create(),
             recipientAddress,
             [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(0))],
             PlainMessage.create(new Date().toISOString()),
             networkType,
-            UInt64.fromUint(2000000 * Math.random() + 20100)
+            fee
         );
 
         const signedTransaction = initiator.sign(transferTransaction, GENERATION_HASH);
@@ -84,6 +87,9 @@ const mainLoop = async () => {
             .toPromise()
             .then(() => {
                 logger.info(`${counter.count()}: ${signedTransaction.hash}`)
+            })
+            .catch((e) => {
+                logger.error(`${counter.count()}: ${e.message}`)
             })
 
         await new Promise((resolve) => {
