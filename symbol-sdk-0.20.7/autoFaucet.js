@@ -47,17 +47,11 @@ const main = async () => {
     const wallet = new hd.Wallet(hd.ExtendedKey.createFromSeed(mnemonic.toSeed(), hd.Network.CATAPULT_PUBLIC))
     // const account = Account.generateNewAccount(networkType)
     try {
-        for (let i = 0; i < 2; i++) {
+        for (let i = 2; i < 3; i++) {
             const account = wallet.getChildAccount(`m/44'/43'/0'/0/${i}`, NetworkType.TEST_NET)
             console.log(account.address.plain())
             await sub(driver, account)
-            wait(5000).then(() => {
-                return axios.get(`http://api-01.us-east-1.096x.symboldev.network:3000/accounts/${account.address.plain()}`)
-            }).then((res) => {
-                console.log(res.data.account.mosaics)
-            })
         }
-        await wait(5000)
         await driver.quit()
     } catch(e) {
         console.error(e.message)

@@ -1,0 +1,1 @@
+require('./accountIncrease').dist(50000, 100000)
