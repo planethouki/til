@@ -20,7 +20,7 @@ const myFormat = winston.format.printf(({ level, message, label, timestamp }) =>
     return `${timestamp} ${level}: ${message}`;
 });
 const transport = new (winston.transports.DailyRotateFile)({
-    filename: 'acc-%DATE%.log',
+    filename: 'nds-%DATE%.log',
     datePattern: 'YYYY-MM-DD-HH',
     zippedArchive: true,
     maxSize: '20m',
@@ -82,34 +82,14 @@ const wait = async (ms = 100) => {
     })
 }
 
-const subDist = async (master, account) => {
+const sub = async (account, recipient) => {
     const transferTransaction = TransferTransaction.create(
         Deadline.create(),
-        account.address,
-        [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(50000 + Math.random() * 50000))],
+        recipient.address,
+        [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(100000))],
         PlainMessage.create(new Date().toISOString()),
         networkType,
-        UInt64.fromUint(20100 + Math.random() * 10000)
-    );
-    const signedTransaction = master.sign(transferTransaction, GENERATION_HASH);
-    const transactionHttp = transactionHttpArray[getRandomInt(0, transactionHttpArray.length)]
-    const send = transactionHttp
-        .announce(signedTransaction)
-        .toPromise()
-        .then(() => {
-            logger.info(`${counter.count()}: ${signedTransaction.hash}`)
-        })
-    await Promise.race([send, wait(10 * Math.random())])
-}
-
-const subBack = async (master, account) => {
-    const transferTransaction = TransferTransaction.create(
-        Deadline.create(),
-        master.address,
-        [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(0))],
-        PlainMessage.create(new Date().toISOString()),
-        networkType,
-        UInt64.fromUint(20100 + Math.random() * 10000)
+        UInt64.fromUint(30000)
     );
     const signedTransaction = account.sign(transferTransaction, GENERATION_HASH);
     const transactionHttp = transactionHttpArray[getRandomInt(0, transactionHttpArray.length)]
@@ -122,34 +102,20 @@ const subBack = async (master, account) => {
     await Promise.race([send, wait(10 * Math.random())])
 }
 
+
 const mnemonic = new hd.MnemonicPassPhrase(process.env.MNIMONIC)
 const wallet = new hd.Wallet(hd.ExtendedKey.createFromSeed(mnemonic.toSeed(), hd.Network.CATAPULT_PUBLIC))
-const master = wallet.getChildAccount(`m/44'/43'/1'/0/0`, NetworkType.TEST_NET)
-// TB7CLUV5ZVL4HJXIP5YNYK37JL35Z3NK4I2KPDQ
 
-const dist = async (from, to) => {
+const main = async () => {
     try {
-        for (let i = from; i < to; i++) {
+        for (let i = 0; i < 100000; i++) {
             const account = wallet.getChildAccount(`m/44'/43'/1'/0/${i}`, NetworkType.TEST_NET)
-            await subDist(master, account)
+            const recipient = wallet.getChildAccount(`m/44'/43'/2'/1/${i}`, NetworkType.TEST_NET)
+            await sub(account, recipient)
         }
     } catch(e) {
         console.error(e.message)
     }
 }
 
-const back = async (from, to) => {
-    try {
-        for (let i = from; i < to; i++) {
-            const account = wallet.getChildAccount(`m/44'/43'/1'/0/${i}`, NetworkType.TEST_NET)
-            await subBack(master, account)
-        }
-    } catch(e) {
-        console.error(e.message)
-    }
-}
-
-module.exports = {
-    dist,
-    back
-}
+main()

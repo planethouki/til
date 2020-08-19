@@ -1,1 +1,1 @@
-require('./accountIncrease').back(50000, 100000)
+require('./accountIncrease').back(100000, 300000)
