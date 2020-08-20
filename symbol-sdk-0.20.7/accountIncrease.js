@@ -85,7 +85,7 @@ const wait = async (ms = 100) => {
 
 const subDist = async (master, account) => {
     const transferTransaction = TransferTransaction.create(
-        Deadline.create(8, ChronoUnit.MINUTES),
+        Deadline.create(30, ChronoUnit.MINUTES),
         account.address,
         [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(50000 + Math.random() * 50000))],
         PlainMessage.create(new Date().toISOString()),
@@ -105,7 +105,7 @@ const subDist = async (master, account) => {
 
 const subBack = async (master, account) => {
     const transferTransaction = TransferTransaction.create(
-        Deadline.create(8, ChronoUnit.MINUTES),
+        Deadline.create(30, ChronoUnit.MINUTES),
         master.address,
         [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(0))],
         PlainMessage.create(new Date().toISOString()),
