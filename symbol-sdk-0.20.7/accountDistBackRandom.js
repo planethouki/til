@@ -1,5 +1,5 @@
 (async () => {
-    const increment = 0xFFF;
+    const increment = 0xFF;
     const getRandomInt = (min, max) => {
         min = Math.ceil(min);
         max = Math.floor(max);
