@@ -1,4 +1,5 @@
 require('dotenv').config()
+const ChronoUnit = require('js-joda').ChronoUnit
 const axios = require('axios')
 const hd = require('symbol-hd-wallets')
 const async = require('async')
@@ -84,7 +85,7 @@ const wait = async (ms = 100) => {
 
 const subDist = async (master, account) => {
     const transferTransaction = TransferTransaction.create(
-        Deadline.create(),
+        Deadline.create(3, ChronoUnit.MINUTES),
         account.address,
         [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(50000 + Math.random() * 50000))],
         PlainMessage.create(new Date().toISOString()),
@@ -104,7 +105,7 @@ const subDist = async (master, account) => {
 
 const subBack = async (master, account) => {
     const transferTransaction = TransferTransaction.create(
-        Deadline.create(),
+        Deadline.create(3, ChronoUnit.MINUTES),
         master.address,
         [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(0))],
         PlainMessage.create(new Date().toISOString()),
