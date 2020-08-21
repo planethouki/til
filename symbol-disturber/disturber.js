@@ -107,13 +107,12 @@ const sub = async (master, accounts) => {
     );
     const signedTransaction = master.sign(transaction, GENERATION_HASH);
     const transactionHttp = transactionHttpArray[getRandomInt(0, transactionHttpArray.length)]
-    const send = transactionHttp
+    await transactionHttp
         .announce(signedTransaction)
         .toPromise()
         .then(() => {
             logger.info(`${counter.count()}: ${signedTransaction.hash}`)
         })
-    await Promise.race([send, wait(10 * Math.random())])
 }
 
 
@@ -127,7 +126,7 @@ const main = async (from, to) => {
         for (let i = from; i < to + 1000; i++) {
             accounts.push(wallet.getChildAccount(`m/44'/43'/0'/0/${i}`, NetworkType.TEST_NET))
         }
-        for (let i = from; i < to; i++) {
+        for (let i = 0; i < to - from; i++) {
             await sub(master, accounts.slice(i, i + 1000))
         }
         // for (let i = 0; i < 1000; i++) {
