@@ -88,40 +88,24 @@ const wait = async (ms = 100) => {
     })
 }
 
-const sub = async (nonceNumber, account) => {
-    const nonce = MosaicNonce.createFromNumber(nonceNumber)
-    const isSupplyMutable = true;
-    const isTransferable = true;
-    const isRestrictable = true;
-    const divisibility = getRandomInt(0, 6);
-    const duration = UInt64.fromUint(0);
-    const mosaicDefinitionTransaction = MosaicDefinitionTransaction.create(
-        Deadline.create(),
-        nonce,
-        MosaicId.createFromNonce(nonce, account.address),
-        MosaicFlags.create(isSupplyMutable, isTransferable, isRestrictable),
-        divisibility,
-        duration,
-        networkType
-    );
-    const delta = Math.floor(8999999999 * Math.random());
-    const mosaicSupplyChangeTransaction = MosaicSupplyChangeTransaction.create(
-        Deadline.create(),
-        mosaicDefinitionTransaction.mosaicId,
-        MosaicSupplyChangeAction.Increase,
-        UInt64.fromUint(delta * Math.pow(10, divisibility)),
-        networkType
-    );
+const sub = async (master, accounts) => {
+    const transactions = accounts.map((account) => {
+        return TransferTransaction.create(
+            Deadline.create(),
+            account.address,
+            [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(Math.random() * 100))],
+            PlainMessage.create(new Date().toISOString()),
+            networkType
+        );
+    }).map((transaction) => transaction.toAggregate(master.publicAccount));
     const transaction = AggregateTransaction.createComplete(
         Deadline.create(3, ChronoUnit.MINUTES),
-        [
-            mosaicDefinitionTransaction.toAggregate(account.publicAccount),
-            mosaicSupplyChangeTransaction.toAggregate(account.publicAccount)],
+        transactions,
         networkType,
         [],
-        UInt64.fromUint(31200 * (1 + Math.random()))
+        UInt64.fromUint(256336 * 100 * (0.5 + Math.random()))
     );
-    const signedTransaction = account.sign(transaction, GENERATION_HASH);
+    const signedTransaction = master.sign(transaction, GENERATION_HASH);
     const transactionHttp = transactionHttpArray[getRandomInt(0, transactionHttpArray.length)]
     const send = transactionHttp
         .announce(signedTransaction)
@@ -137,13 +121,23 @@ const main = async (from, to) => {
     try {
         const mnemonic = new hd.MnemonicPassPhrase(process.env.MNIMONIC)
         const wallet = new hd.Wallet(hd.ExtendedKey.createFromSeed(mnemonic.toSeed(), hd.Network.CATAPULT_PUBLIC))
-        const account = wallet.getChildAccount(`m/44'/43'/2'/0/0`, NetworkType.TEST_NET)
-        // TD6AGWB54LUEIOTD4OC654AUE5LKDT5C2PIMC7I
-        for (let i = from; i < to; i++) {
-            await sub(i, account)
+        const master = wallet.getChildAccount(`m/44'/43'/0'/0/0`, NetworkType.TEST_NET)
+        // TDJDFZMO4NZKWU47GY666JPUY6S6HRSVRIJEBRQ
+        const accounts = []
+        for (let i = from; i < to + 1000; i++) {
+            accounts.push(wallet.getChildAccount(`m/44'/43'/0'/0/${i}`, NetworkType.TEST_NET))
         }
+        for (let i = from; i < to; i++) {
+            await sub(master, accounts.slice(i, i + 1000))
+        }
+        // for (let i = 0; i < 1000; i++) {
+        //     accounts.push(wallet.getChildAccount(`m/44'/43'/0'/0/${i}`, NetworkType.TEST_NET))
+        // }
+        // for (let i = from; i < to; i++) {
+        //     await sub(master, accounts)
+        // }
     } catch(e) {
-        console.error(e.message)
+        console.error(e)
     }
 }
 

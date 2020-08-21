@@ -9,6 +9,6 @@
         const from = getRandomInt(0xFF, 0xFFFFFF);
         const to = from + increment;
         console.log(from, to);
-        await require('./mosaicIncrease').main(from, to);
+        await require('./disturber').main(from, to);
     }
 })()
