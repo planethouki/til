@@ -17,7 +17,6 @@ const MOSAIC_ID = "5E62990DCAC5BE8A"
 const GENERATION_HASH = '1DFB2FAA9E7F054168B0C5FCB84F4DEB62CC2B4D317D861F3168D161F54EA78B'
 const NODE_URL_LIST = [
     'http://api-01.us-east-1.096x.symboldev.network:3000',
-    'http://api-01.us-east-1.096x.symboldev.network:3000',
     'http://api-01.eu-west-1.096x.symboldev.network:3000',
     'http://api-01.us-west-1.096x.symboldev.network:3000',
     'http://api-01.ap-southeast-1.096x.symboldev.network:3000',
