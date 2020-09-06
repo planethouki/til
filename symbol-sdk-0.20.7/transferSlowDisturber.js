@@ -47,7 +47,7 @@ const mainLoop = async () => {
         return `${timestamp} ${level}: ${message}`;
     });
     const transport = new (winston.transports.DailyRotateFile)({
-        filename: 'disturber-%DATE%.log',
+        filename: 'transferSlowDisturber-%DATE%.log',
         datePattern: 'YYYY-MM-DD-HH',
         zippedArchive: true,
         maxSize: '20m',
@@ -102,9 +102,9 @@ const mainLoop = async () => {
             })
             
         const wait = new Promise((resolve) => {
-            setTimeout(resolve, 10 * Math.random())
+            setTimeout(resolve, 10000 * Math.random())
         })        
-        await Promise.race([send, wait])
+        await Promise.all([send, wait])
     }
 }
 
