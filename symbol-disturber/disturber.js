@@ -1,19 +1,8 @@
-require('dotenv').config()
-const ChronoUnit = require('js-joda').ChronoUnit
-const axios = require('axios')
-const hd = require('symbol-hd-wallets')
-const async = require('async')
 const { 
     Account,
-    AggregateTransaction,
     Deadline,
     Mosaic,
-    MosaicDefinitionTransaction,
-    MosaicFlags,
     MosaicId,
-    MosaicNonce,
-    MosaicSupplyChangeAction,
-    MosaicSupplyChangeTransaction,
     NetworkType,
     PlainMessage,
     RepositoryFactoryHttp,
@@ -23,30 +12,7 @@ const {
 const winston = require('winston');
 require('winston-daily-rotate-file');
 
-const myFormat = winston.format.printf(({ level, message, label, timestamp }) => {
-    return `${timestamp} ${level}: ${message}`;
-});
-const transport = new (winston.transports.DailyRotateFile)({
-    filename: 'mosaic-%DATE%.log',
-    datePattern: 'YYYY-MM-DD-HH',
-    zippedArchive: true,
-    maxSize: '20m',
-    maxFiles: '14d'
-});
-const logger = winston.createLogger({
-    level: 'debug',
-    format: winston.format.combine(
-        winston.format.label({ label: 'label' }),
-        winston.format.timestamp(),
-        myFormat
-    ),
-    transports: [
-        transport,
-        new winston.transports.Console()
-    ],
-});
-
-const networkType = NetworkType.TEST_NET
+const PRIVATE_KEY = '13E123227BA91F170F38DA4C6A251B48F4B903271D803A7FCEEDFFACB1118198'
 const MOSAIC_ID = "5E62990DCAC5BE8A"
 const GENERATION_HASH = '1DFB2FAA9E7F054168B0C5FCB84F4DEB62CC2B4D317D861F3168D161F54EA78B'
 const NODE_URL_LIST = [
@@ -58,11 +24,7 @@ const NODE_URL_LIST = [
     'http://api-01.ap-northeast-1.096x.symboldev.network:3000',
 ]
 
-const transactionHttpArray = NODE_URL_LIST.map((NODE_URL) => {
-    return new RepositoryFactoryHttp(NODE_URL);
-}).map((repo) => {
-    return repo.createTransactionRepository()
-})
+const networkType = NetworkType.TEST_NET
 
 const getRandomInt = (min, max) => {
     min = Math.ceil(min);
@@ -80,66 +42,70 @@ const createCounter = () => {
     }
 }
 
-const counter = createCounter()
+const mainLoop = async () => {
+    const myFormat = winston.format.printf(({ level, message, label, timestamp }) => {
+        return `${timestamp} ${level}: ${message}`;
+    });
+    const transport = new (winston.transports.DailyRotateFile)({
+        filename: 'transferSlowDisturber-%DATE%.log',
+        datePattern: 'YYYY-MM-DD-HH',
+        zippedArchive: true,
+        maxSize: '20m',
+        maxFiles: '14d'
+    });
+    const logger = winston.createLogger({
+        level: 'debug',
+        format: winston.format.combine(
+            winston.format.label({ label: 'label' }),
+            winston.format.timestamp(),
+            myFormat
+        ),
+        transports: [
+            transport,
+            new winston.transports.Console()
+        ],
+      });
+    const counter = createCounter()
+    const initiator = Account.createFromPrivateKey(PRIVATE_KEY, networkType)
+    
+    // const initiator = Account.generateNewAccount(networkType)
+    
+    logger.info(initiator.privateKey)
+    logger.info(initiator.publicAccount.publicKey)
+    logger.info(initiator.address.plain())
+    logger.info(initiator.address.pretty())
 
-const wait = async (ms = 100) => {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms)
+    const recipientAddress = initiator.address
+
+    const transactionHttpArray = NODE_URL_LIST.map((NODE_URL) => {
+        return new RepositoryFactoryHttp(NODE_URL);
+    }).map((repo) => {
+        return repo.createTransactionRepository()
     })
-}
 
-const sub = async (master, accounts) => {
-    const transactions = accounts.map((account) => {
-        return TransferTransaction.create(
+    while (true) {
+        const transferTransaction = TransferTransaction.create(
             Deadline.create(),
-            account.address,
-            [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(Math.random() * 100))],
+            recipientAddress,
+            [new Mosaic (new MosaicId(MOSAIC_ID), UInt64.fromUint(0))],
             PlainMessage.create(new Date().toISOString()),
-            networkType
+            networkType,
+            UInt64.fromUint(10000 * Math.random() + 20100)
         );
-    }).map((transaction) => transaction.toAggregate(master.publicAccount));
-    const transaction = AggregateTransaction.createComplete(
-        Deadline.create(3, ChronoUnit.MINUTES),
-        transactions,
-        networkType,
-        [],
-        UInt64.fromUint(256336 * 100 * (0.5 + Math.random()))
-    );
-    const signedTransaction = master.sign(transaction, GENERATION_HASH);
-    const transactionHttp = transactionHttpArray[getRandomInt(0, transactionHttpArray.length)]
-    await transactionHttp
-        .announce(signedTransaction)
-        .toPromise()
-        .then(() => {
-            logger.info(`${counter.count()}: ${signedTransaction.hash}`)
-        })
-}
-
-
-const main = async (from, to) => {
-    try {
-        const mnemonic = new hd.MnemonicPassPhrase(process.env.MNIMONIC)
-        const wallet = new hd.Wallet(hd.ExtendedKey.createFromSeed(mnemonic.toSeed(), hd.Network.CATAPULT_PUBLIC))
-        const master = wallet.getChildAccount(`m/44'/43'/0'/0/0`, NetworkType.TEST_NET)
-        // TDJDFZMO4NZKWU47GY666JPUY6S6HRSVRIJEBRQ
-        const accounts = []
-        for (let i = from; i < to + 1000; i++) {
-            accounts.push(wallet.getChildAccount(`m/44'/43'/0'/0/${i}`, NetworkType.TEST_NET))
-        }
-        for (let i = 0; i < to - from; i++) {
-            await sub(master, accounts.slice(i, i + 1000))
-        }
-        // for (let i = 0; i < 1000; i++) {
-        //     accounts.push(wallet.getChildAccount(`m/44'/43'/0'/0/${i}`, NetworkType.TEST_NET))
-        // }
-        // for (let i = from; i < to; i++) {
-        //     await sub(master, accounts)
-        // }
-    } catch(e) {
-        console.error(e)
+        const signedTransaction = initiator.sign(transferTransaction, GENERATION_HASH);
+        const transactionHttp = transactionHttpArray[getRandomInt(0, transactionHttpArray.length)]
+        const send = transactionHttp
+            .announce(signedTransaction)
+            .toPromise()
+            .then(() => {
+                logger.info(`${counter.count()}: ${signedTransaction.hash}`)
+            })
+            
+        const wait = new Promise((resolve) => {
+            setTimeout(resolve, 10000 * Math.random())
+        })        
+        await Promise.all([send, wait])
     }
 }
 
-module.exports = {
-    main
-}
+module.exports = mainLoop
