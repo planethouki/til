@@ -13,15 +13,15 @@ const winston = require('winston');
 require('winston-daily-rotate-file');
 
 const PRIVATE_KEY = '13E123227BA91F170F38DA4C6A251B48F4B903271D803A7FCEEDFFACB1118198'
-const MOSAIC_ID = "5E62990DCAC5BE8A"
-const GENERATION_HASH = '1DFB2FAA9E7F054168B0C5FCB84F4DEB62CC2B4D317D861F3168D161F54EA78B'
+const MOSAIC_ID = "5B66E76BECAD0860"
+const GENERATION_HASH = '6C1B92391CCB41C96478471C2634C111D9E989DECD66130C0430B5B8D20117CD'
 const NODE_URL_LIST = [
-    'http://api-01.us-east-1.096x.symboldev.network:3000',
-    'http://api-01.eu-west-1.096x.symboldev.network:3000',
-    'http://api-01.us-west-1.096x.symboldev.network:3000',
-    'http://api-01.ap-southeast-1.096x.symboldev.network:3000',
-    'http://api-01.eu-central-1.096x.symboldev.network:3000',
-    'http://api-01.ap-northeast-1.096x.symboldev.network:3000',
+    'http://api-01.ap-northeast-1.0.10.0.x.symboldev.network:3000',
+    'http://api-01.ap-southeast-1.0.10.0.x.symboldev.network:3000',
+    'http://api-01.eu-central-1.0.10.0.x.symboldev.network:3000',
+    'http://api-01.eu-west-1.0.10.0.x.symboldev.network:3000',
+    'http://api-01.us-east-1.0.10.0.x.symboldev.network:3000',
+    'http://api-01.us-west-1.0.10.0.x.symboldev.network:3000',
 ]
 
 const networkType = NetworkType.TEST_NET

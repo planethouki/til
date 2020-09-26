@@ -18,7 +18,7 @@
     "rimraf": "^3.0.2",
     "selenium-webdriver": "^4.0.0-alpha.7",
     "symbol-hd-wallets": "^0.12.0",
-    "symbol-sdk": "^0.20.7",
+    "symbol-sdk": "^0.21.0",
     "unzip": "^0.1.11",
     "unzipper": "^0.10.11",
     "winston": "^3.3.3",
