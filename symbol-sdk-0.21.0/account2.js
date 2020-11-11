@@ -28,7 +28,7 @@ const networkType = NetworkType.TEST_NET;
 
 const read = JSON.parse(fs.readFileSync('./account1.json', 'utf-8'));
 
-const nodeUrl = nodeList[0];
+const nodeUrl = nodeList[1];
 const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
 const accountHttp = repositoryFactory.createAccountRepository();
 

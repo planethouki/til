@@ -8,6 +8,7 @@ const {
     KeyPair,
     LinkAction,
     NetworkType,
+    NodeKeyLinkTransaction,
     PersistentDelegationRequestTransaction,
     PersistentHarvestingDelegationMessage,
     PlainMessage,
@@ -18,14 +19,16 @@ const {
     TransactionType,
     TransferTransaction,
     UInt64,
+    VrfKeyLinkTransaction
 } = require('symbol-sdk');
 
 const fs = require('fs');
 
-process.env.PRIVATE_KEY = '6592A8F4056F2FE3AF645F989B557D8F94B888E8F52416001D030E6415036CB8'
+process.env.PRIVATE_KEY = 'A68F71CFE7157A774C654FEC5E97AEB3574A886E98AD84C7571DFB8C002F2C87'
 process.env.ANNOUNCE_PRIVATE_KEY = 'B02A8FFD635DDA63910616718E5D9E446C5CE380EBCC2876FC398CFBFE014CF2'
-process.env.REMOTE_PRIVATE_KEY = '262A59205AC2E1E8557A1BB6D99E419FBB5A5901743F61045A2281F171C1ED05'
-process.env.NODE_PUBLIC_KEY = '70E06C112848A652D635755B7530D3096A978321D09B8D8DC17505CAE09565C5'
+process.env.REMOTE_PRIVATE_KEY = '875FB4547B3D6AABAD5DCAFE241AAC40728499F368D1898513FA79D6EBCF35CF'
+process.env.VRF_PRIVATE_KEY = '06C4E651898A76D1B586FA5D4508096753F64104144F41BADEFFCFA8DF4B33A6'
+process.env.NODE_PUBLIC_KEY = 'D74B89EE9378DEBD510A4139F8E8B10B878E12956059CD9E13253CF3AD73BDEB'
 process.env.NETWORK_GENERATION_HASH = '6C1B92391CCB41C96478471C2634C111D9E989DECD66130C0430B5B8D20117CD'
 
 const nodeList = [
@@ -39,25 +42,27 @@ const nodeList = [
 
 const networkType = NetworkType.TEST_NET;
 
-const account = Account.createFromPrivateKey(process.env.PRIVATE_KEY, networkType);
+const mainAccount = Account.createFromPrivateKey(process.env.PRIVATE_KEY, networkType);
 const announceAccount = Account.createFromPrivateKey(process.env.ANNOUNCE_PRIVATE_KEY, networkType);
 const remoteAccount = Account.createFromPrivateKey(process.env.REMOTE_PRIVATE_KEY, networkType);
+const vrfAccount = Account.createFromPrivateKey(process.env.VRF_PRIVATE_KEY, networkType);
+const nodePublicAccount = PublicAccount.createFromPublicKey(process.env.NODE_PUBLIC_KEY, networkType);
 
-const nodeUrl = nodeList[0];
+const nodeUrl = nodeList[1];
 const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
 const transactionHttp = repositoryFactory.createTransactionRepository();
 
 const networkGenerationHash = process.env.NETWORK_GENERATION_HASH
 
-const link = () => {
-    const accountLinkTransaction = AccountKeyLinkTransaction.create(
+const account = () => {
+    const linkTransaction = AccountKeyLinkTransaction.create(
         Deadline.create(),
         remoteAccount.publicKey,
         LinkAction.Link,
         networkType,
         UInt64.fromUint(1000000));
 
-    const signedTransaction = account.sign(accountLinkTransaction, networkGenerationHash);
+    const signedTransaction = mainAccount.sign(linkTransaction, networkGenerationHash);
     
     transactionHttp
         .announce(signedTransaction)
@@ -65,20 +70,62 @@ const link = () => {
         
     fs.appendFileSync('./delegate2.log', JSON.stringify({
         date: new Date().toISOString(),
-        type: 'link',
+        type: 'account link',
+        hash: signedTransaction.hash,
+        payload: signedTransaction.payload
+    }, null, "  "))
+}
+
+const vrf = () => {
+    const linkTransaction = VrfKeyLinkTransaction.create(
+        Deadline.create(),
+        vrfAccount.publicKey,
+        LinkAction.Link,
+        networkType,
+        UInt64.fromUint(1000000));
+
+    const signedTransaction = mainAccount.sign(linkTransaction, networkGenerationHash);
+    
+    transactionHttp
+        .announce(signedTransaction)
+        .subscribe(x=> console.log(x), err => console.error(err));
+        
+    fs.appendFileSync('./delegate2.log', JSON.stringify({
+        date: new Date().toISOString(),
+        type: 'vrf link',
+        hash: signedTransaction.hash,
+        payload: signedTransaction.payload
+    }, null, "  "))
+}
+
+const node = (isLink) => {
+    const linkTransaction = NodeKeyLinkTransaction.create(
+        Deadline.create(),
+        nodePublicAccount.publicKey,
+        isLink ? LinkAction.Link : LinkAction.Unlink,
+        networkType,
+        UInt64.fromUint(1000000));
+
+    const signedTransaction = mainAccount.sign(linkTransaction, networkGenerationHash);
+    
+    transactionHttp
+        .announce(signedTransaction)
+        .subscribe(x=> console.log(x), err => console.error(err));
+        
+    fs.appendFileSync('./delegate2.log', JSON.stringify({
+        date: new Date().toISOString(),
+        type: 'node link',
         hash: signedTransaction.hash,
         payload: signedTransaction.payload
     }, null, "  "))
 }
 
 const delegate = () => {
-    const nodePublicKey = process.env.NODE_PUBLIC_KEY;
-    const nodePublicAccount = PublicAccount.createFromPublicKey(nodePublicKey, networkType);
 
     const message = PersistentHarvestingDelegationMessage
-        .create(remoteAccount.privateKey, account.privateKey, nodePublicKey, networkType);
+        .create(remoteAccount.privateKey, vrfAccount.privateKey, nodePublicAccount.publicKey, networkType);
     const zeroSeq = '000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
-    const dummyMessage = PlainMessage.create(zeroSeq.substr(0, message.payload.length / 2))
+    const dummyMessage = PlainMessage.create(zeroSeq.substr(0, (message.payload.length - 2) / 2))
 
     let persistentDelegationRequestTransaction = TransferTransaction
         .create(
@@ -94,7 +141,8 @@ const delegate = () => {
     let signedTransactionPayload = 
         signedTransaction.payload.substr(0, 320) +
         message.type.toString(16).toUpperCase() + 
-        message.payload;
+        "2A8061577301E2" +
+        message.payload.substr("16");
 
     const sign = (account, generationHash, signedTransactionPayload) => {
         const generationHashBytes = Array.from(Convert.hexToUint8(generationHash));
@@ -121,7 +169,7 @@ const delegate = () => {
     signedTransaction = new SignedTransaction(
         signedTransactionPayload,
         hash(signedTransactionPayload, networkGenerationHash),
-        account.publicKey,
+        mainAccount.publicKey,
         TransactionType.TransferTransaction,
         networkType
     )
@@ -145,12 +193,21 @@ if (process.argv.length < 3) {
 }
 
 switch(process.argv[2]) {
-    case 'link':
-        link();
+    case 'account':
+        account();
+        break;
+    case 'vrf':
+        vrf();
+        break;
+    case 'node':
+        node(true);
+        break;
+    case 'node-unlink':
+        node(false);
         break;
     case 'delegate':
         delegate();
         break;
     default:
-        console.log('nothing');
+        console.log('invalid args');
 }
