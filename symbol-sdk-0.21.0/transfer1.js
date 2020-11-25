@@ -30,13 +30,13 @@ const nodeList = [
 
 const networkType = NetworkType.TEST_NET;
 
-const privateKeyFrom = "A7AB5CBE5690752F5CCFE516BFA10564FD0539C30C3904D3642F2C188880D8B4";
-const addressTo = "TBXK4X7SBGOMVFKV3BETDYZHUXMCD3L6ZDJEYEY";
+const privateKeyFrom = "A68F71CFE7157A774C654FEC5E97AEB3574A886E98AD84C7571DFB8C002F2C87";
+const addressTo = "TCAGH46RHAWYOFMGMQZAM7RFDMAQNLOUQ2CCRPA";
 
 const transferTransaction = TransferTransaction.create(
     Deadline.create(),
     Address.createFromRawAddress(addressTo),
-    [NetworkCurrencyPublic.createAbsolute(70000000000 - 20000)],
+    [NetworkCurrencyPublic.createAbsolute(1079992582667 - 20000)],
     PlainMessage.create(''),
     networkType,
     UInt64.fromUint(20000));

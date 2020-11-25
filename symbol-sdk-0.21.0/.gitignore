@@ -3,3 +3,4 @@ account2.json
 *.log
 keylog
 cert1003
+.env

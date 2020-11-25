@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "symbol-sdk": "^0.21.0"
   },
   "devDependencies": {},
