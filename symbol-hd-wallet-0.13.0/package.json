@@ -1,0 +1,16 @@
+{
+  "name": "symbol-hd-wallet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "symbol-hd-wallets": "^0.13.0"
+  }
+}
