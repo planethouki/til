@@ -18,12 +18,13 @@ def loop():
         time.sleep(0.5)
 
 def destroy():
-    GPIO.otput(Led, GPIO.HIGH)
+    GPIO.output(Led, GPIO.HIGH)
     GPIO.cleanup()
 
 if __name__ == '__main__':
     setup()
     try:
         loop()
-    except KeyboardInterrupt:
+    except:
         destroy()
+        printf("except")
