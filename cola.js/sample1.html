@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Layout kept inside bounding box</title>
+<style>
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .8;
+}
+
+#page {
+    fill: white;
+    stroke: black;
+    stroke-width: 1px;
+}
+
+</style>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://ialab.it.monash.edu/webcola/cola.js"></script>
+<script>
+    var width = 960,
+        height = 500;
+
+    var cola = cola.d3adaptor()
+        .size([width, height]);
+
+    var color = d3.scale.category20();
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    d3.json("data.json", function(error, graph) {
+        var pageBounds = { x: 100, y: 50, width: 700, height: 400 },
+            page = svg.append('rect').attr('id', 'page').attr(pageBounds),
+            nodeRadius = 10,
+            realGraphNodes = graph.nodes.slice(0),
+            fixedNode = {fixed: true, fixedWeight: 100},
+            topLeft = { ...fixedNode, x: pageBounds.x, y: pageBounds.y },
+            tlIndex = graph.nodes.push(topLeft) - 1,
+            bottomRight = { ...fixedNode, x: pageBounds.x + pageBounds.width, y: pageBounds.y + pageBounds.height },
+            brIndex = graph.nodes.push(bottomRight) - 1,
+            constraints = [];
+
+        for (var i = 0; i < realGraphNodes.length; i++) {
+            constraints.push({ axis: 'x', type: 'separation', left: tlIndex, right: i, gap: nodeRadius });
+            constraints.push({ axis: 'y', type: 'separation', left: tlIndex, right: i, gap: nodeRadius });
+            constraints.push({ axis: 'x', type: 'separation', left: i, right: brIndex, gap: nodeRadius });
+            constraints.push({ axis: 'y', type: 'separation', left: i, right: brIndex, gap: nodeRadius });
+        }
+
+        cola
+            .nodes(graph.nodes)
+            .links(graph.links)
+            .constraints(constraints)
+            .jaccardLinkLengths(60, 0.7)
+            .handleDisconnected(false)
+            .start(30);
+
+        var link = svg.selectAll(".link")
+            .data(graph.links)
+            .enter()
+            .append("line")
+            .attr("class", "link")
+            .style("stroke-width", function (d) { return Math.sqrt(d.value); });
+
+        var node = svg.selectAll(".node")
+            .data(realGraphNodes)
+            .enter()
+            .append("circle")
+            .attr("class", "node")
+            .attr("r", nodeRadius)
+            .style("fill", function (d) { return color(d.group); })
+            .call(cola.drag);
+
+        node.append("title")
+            .text(function (d) { return d.name; });
+
+        cola.on("tick", function () {
+            link.attr("x1", function (d) { return d.source.x; })
+                .attr("y1", function (d) { return d.source.y; })
+                .attr("x2", function (d) { return d.target.x; })
+                .attr("y2", function (d) { return d.target.y; });
+
+            node.attr("cx", function (d) { return d.x; })
+                .attr("cy", function (d) { return d.y; });
+
+            page.attr(pageBounds = {
+                x: topLeft.x,
+                y: topLeft.y,
+                width: bottomRight.x - topLeft.x,
+                height: bottomRight.y - topLeft.y
+            });
+        });
+
+    });
+</script>
+</body>
+</html>
