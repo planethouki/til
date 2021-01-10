@@ -1,10 +1,22 @@
 const fs = require('fs')
 const { createCanvas } = require('canvas')
 
+// https://blog.splout.co.jp/3429/ #1
+
+/*
+ |
+-o------------------>x
+ |
+ |
+ |
+ |
+ |
+ y
+*/
+
 function getRandomSign() {
   return Math.sign(Math.random() - 0.5)
 }
-
 
 // min <= return < max
 function getRandomArbitrary(min, max) {
