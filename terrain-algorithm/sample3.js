@@ -1,5 +1,6 @@
 // https://blog.splout.co.jp/3429/ #2
 // https://en.wikipedia.org/wiki/Diamond-square_algorithm
+// http://www.playfuljs.com/realistic-terrain-in-130-lines/
 
 const PNG = require("pngjs").PNG;
 const fs = require("fs");
@@ -97,7 +98,7 @@ divide(Math.pow(2, n));
 
 newfile
   .pack()
-  .pipe(fs.createWriteStream(__dirname + "/newfile3.png"))
+  .pipe(fs.createWriteStream(__dirname + "/sample3.png"))
   .on("finish", function () {
     console.log("Written!");
   });

@@ -73,7 +73,7 @@ clockwise.forEach((c, index) => {
 
 const colors = ['yellow', 'purple'];
 
-for (let itr = 1; itr <= 10; itr++) {
+for (let itr = 1; itr <= 15; itr++) {
   console.log(`iteration: ${itr}`);
   const orders = Object.keys(order2points).sort((a, b) => a - b);
   const ordersDiff = (Number(orders[1]) - Number(orders[0])) / 2;
@@ -82,8 +82,8 @@ for (let itr = 1; itr <= 10; itr++) {
     const p1 = order2points[orders[i]];
     const p2 = order2points[orders[(i + 1) % orders.length]];
     const m = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
-    m.y += 0.5 * Math.random() * getRandomSign() * Math.abs(p1.x - p2.x);
-    m.x += 0.5 * Math.random() * getRandomSign() * Math.abs(p1.y - p2.y);
+    m.y += 0.5 * getRandomSign() * Math.abs(p1.x - p2.x);
+    m.x += 0.5 * getRandomSign() * Math.abs(p1.y - p2.y);
     if (m.x < 0) { m.x = 0 }
     if (m.y < 0) { m.y = 0 }
     if (m.x >= nx) { m.x = nx - 1 }
