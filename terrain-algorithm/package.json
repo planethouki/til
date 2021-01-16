@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.6.1",
+    "hsl-rgb": "^1.0.0",
     "pngjs": "^6.0.0"
   }
 }
