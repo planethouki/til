@@ -80,7 +80,7 @@ function interpolate(x0, x1, alpha) {
 }
 
 
-const n = 10;
+const n = 9;
 const max = Math.pow(2, n);
 
 const nx = max + 1;

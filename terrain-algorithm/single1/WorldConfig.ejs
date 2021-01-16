@@ -22,7 +22,7 @@ SettingsMode: WriteWithoutComments
 
 TerrainMode: Normal
 
-BiomeMode: FromImage
+BiomeMode: <%= biomeMode %>
 
 
 #######################################################################
@@ -31,7 +31,7 @@ BiomeMode: FromImage
 # +-----------------------------------------------------------------+ #
 #######################################################################
 
-CustomBiomes: PlainsA:400, PlainsB:401, PlainsC:402, PlainsD:403, PlainsE:404, PlainsF:405, PlainsG:406, PlainsH:407, PlainsI:408, PlainsJ:409, PlainsK:410
+CustomBiomes: <%= customBiomes.map((name, index) => `${name}:${index + 400}`).join(', ') %>
 
 
 #######################################################################
@@ -118,15 +118,15 @@ RandomRivers: false
 
 ImageMode: Mirror
 
-ImageFile: single1.png
+ImageFile: <%= imageFile %>
 
-ImageOrientation: North
+ImageOrientation: <%= imageOrientation %>
 
 ImageFillBiome: Ocean
 
-ImageXOffset: -256
+ImageXOffset: <%= imageXOffset %>
 
-ImageZOffset: -256
+ImageZOffset: <%= imageZOffset %>
 
 
 #######################################################################
@@ -166,7 +166,7 @@ PopulationBoundsCheck: true
 # Water / Lava & Frozen States #
 ################################
 
-WaterLevelMax: 31
+WaterLevelMax: <%= waterLevelMax %>
 
 WaterLevelMin: 0
 
