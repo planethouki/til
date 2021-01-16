@@ -92,7 +92,8 @@ const max = Math.pow(2, n);
 const nx = max + 1;
 const ny = max + 1;
 
-const newfile = new PNG({ width: nx, height: ny });
+const monoMap = new PNG({ width: nx, height: ny });
+const biomeMap = new PNG({ width: nx, height: ny });
 
 const perlin = generatePerlinNoise(nx, ny, {
   octaveMax: n - 3,
@@ -101,15 +102,34 @@ const perlin = generatePerlinNoise(nx, ny, {
 
 perlin.forEach((value, index) => {
   const i = index << 2;
-  newfile.data[i + 0] = value * 0xff;
-  newfile.data[i + 1] = value * 0xff;
-  newfile.data[i + 2] = value * 0xff;
-  newfile.data[i + 3] = 0xff;
+  monoMap.data[i + 0] = value * 0xff;
+  monoMap.data[i + 1] = value * 0xff;
+  monoMap.data[i + 2] = value * 0xff;
+  monoMap.data[i + 3] = 0xff;
 });
 
-newfile
+perlin.forEach((value, index) => {
+  const i = index << 2;
+  const step = Math.floor(value * 10) / 10;
+  const h = -225 * step + 225;
+  const rgb = hslRgb(h, 0.9, 0.4);
+  biomeMap.data[i + 0] = rgb[0];
+  biomeMap.data[i + 1] = rgb[1];
+  biomeMap.data[i + 2] = rgb[2];
+  biomeMap.data[i + 3] = 0xff;
+});
+
+monoMap
   .pack()
-  .pipe(fs.createWriteStream(__dirname + "/sample5.png"))
+  .pipe(fs.createWriteStream(__dirname + "/sample5m.png"))
+  .on("finish", function () {
+    console.log("Written!");
+  });
+
+
+biomeMap
+  .pack()
+  .pipe(fs.createWriteStream(__dirname + "/sample5c.png"))
   .on("finish", function () {
     console.log("Written!");
   });
