@@ -1,10 +1,10 @@
-BiomeExtends: Plains
+BiomeExtends: Birch Forest
 
 ResourceInheritance: true
 
-BiomeColor: #0AC238
+BiomeColor: #14B83D
 
-ReplaceToBiomeName: minecraft:plains
+ReplaceToBiomeName: minecraft:beaches
 
 BiomeHeight: -1.6999999999999993
 

@@ -1,0 +1,13 @@
+BiomeExtends: Jungle
+
+ResourceInheritance: true
+
+BiomeColor: #00CC80
+
+ReplaceToBiomeName: minecraft:jungle
+
+BiomeHeight: -3.299999999999999
+
+BiomeVolatility: 0.1
+
+SmoothRadius: 4

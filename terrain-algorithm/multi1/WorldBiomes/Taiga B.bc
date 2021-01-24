@@ -1,0 +1,13 @@
+BiomeExtends: Taiga
+
+ResourceInheritance: true
+
+BiomeColor: #1F78AD
+
+ReplaceToBiomeName: minecraft:taiga
+
+BiomeHeight: -6.5
+
+BiomeVolatility: 0.1
+
+SmoothRadius: 4

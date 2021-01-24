@@ -1,13 +1,13 @@
-BiomeExtends: Plains
+BiomeExtends: Forest
 
 ResourceInheritance: true
 
 BiomeColor: #C2940A
 
-ReplaceToBiomeName: minecraft:plains
+ReplaceToBiomeName: minecraft:forest
 
 BiomeHeight: 4.700000000000001
 
-BiomeVolatility: 0.05
+BiomeVolatility: 0.35
 
 SmoothRadius: 4

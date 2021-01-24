@@ -1,0 +1,13 @@
+BiomeExtends: Deep Ocean
+
+ResourceInheritance: true
+
+BiomeColor: #0B0B30
+
+ReplaceToBiomeName: minecraft:deep_ocean
+
+BiomeHeight: -6.5
+
+BiomeVolatility: 0.1
+
+SmoothRadius: 4

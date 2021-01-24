@@ -1,10 +1,10 @@
-BiomeExtends: Plains
+BiomeExtends: Taiga
 
 ResourceInheritance: true
 
-BiomeColor: #21C20A
+BiomeColor: #30AD1F
 
-ReplaceToBiomeName: minecraft:plains
+ReplaceToBiomeName: minecraft:taiga
 
 BiomeHeight: -0.09999999999999964
 

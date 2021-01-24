@@ -1,0 +1,13 @@
+BiomeExtends: Extreme Hills M
+
+ResourceInheritance: true
+
+BiomeColor: #A38529
+
+ReplaceToBiomeName: minecraft:mutated_extreme_hills
+
+BiomeHeight: 4.700000000000001
+
+BiomeVolatility: 0.35
+
+SmoothRadius: 4

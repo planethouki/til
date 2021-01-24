@@ -1,0 +1,13 @@
+BiomeExtends: Birch Forest
+
+ResourceInheritance: true
+
+BiomeColor: #B81414
+
+ReplaceToBiomeName: minecraft:beaches
+
+BiomeHeight: 7.9
+
+BiomeVolatility: 
+
+SmoothRadius: 4

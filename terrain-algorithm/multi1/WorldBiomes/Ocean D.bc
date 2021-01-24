@@ -1,0 +1,13 @@
+BiomeExtends: Ocean
+
+ResourceInheritance: true
+
+BiomeColor: #0B0B70
+
+ReplaceToBiomeName: minecraft:ocean
+
+BiomeHeight: -3.299999999999999
+
+BiomeVolatility: 0.1
+
+SmoothRadius: 4
