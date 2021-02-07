@@ -30,11 +30,9 @@ async function main() {
         console.log(found);
     }
 
-    return;
-
     const url = `${API_URL_PREFIX}/trigger/${webhookEvent}/with/key/${SERVICE_KEY}`;
     const data = {
-        value1: "テスト",
+        value1: "トマトソース",
         value2: "#料理",
         value3: `${IMAGE_URL}`
     };

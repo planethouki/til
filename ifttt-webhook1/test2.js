@@ -9,7 +9,7 @@ const webhookEvent = "webhook_test";
 
 const url = `${API_URL_PREFIX}/trigger/${webhookEvent}/with/key/${SERVICE_KEY}`;
 const data = {
-    value1: "テスト"
+    value1: "こんばんは"
 };
 const config = {};
 
