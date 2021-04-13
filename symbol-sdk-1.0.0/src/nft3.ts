@@ -45,28 +45,13 @@ transactionHttp
         });
         // tslint:disable-next-line:no-console
         // console.log(result);
-        const txsDto = txsWithMosaicDef.map((tx) => tx.toJSON());
+        const txsDto = txsWithMosaicDef.map((tx) => {
+            return {
+                ...tx.toJSON(),
+                meta: tx.transactionInfo
+            }
+        });
         const out = JSON.stringify(txsDto, null, "  ");
-        fs.writeFileSync("out.json", out);
+        fs.writeFileSync("out3.json", out);
 
-        const input = JSON.parse(out);
-        console.log(Convert.decodeHex(input[0].transaction.transactions[3].transaction.value));
-
-        const b: string[] = txsWithMosaicDef
-            .map((tx) => {
-                const ag = tx as AggregateTransaction;
-                return ag.innerTransactions.filter((inner) => {
-                    return inner.type === TransactionType.MOSAIC_METADATA
-                });
-            })
-            .filter((mm) => {
-                return mm.length > 0;
-            })
-            .map((mm) => {
-                const mmtx: MosaicMetadataTransaction = mm[0] as MosaicMetadataTransaction;
-                return mmtx.value;
-            });
-        const d = b.map(t => JSON.parse(t));
-        // tslint:disable-next-line:no-console
-        console.log(d);
     });
