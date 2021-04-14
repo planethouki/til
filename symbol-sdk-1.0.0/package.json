@@ -6,12 +6,14 @@
   "scripts": {
     "nft1": "tsc && node dist/nft1.js",
     "nft3": "tsc && node dist/nft3.js",
+    "nft4": "tsc && node dist/nft4.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "symbol-sdk": "^1.0.0"
   },
   "devDependencies": {
