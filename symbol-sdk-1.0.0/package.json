@@ -7,6 +7,8 @@
     "nft1": "tsc && node dist/nft1.js",
     "nft3": "tsc && node dist/nft3.js",
     "nft4": "tsc && node dist/nft4.js",
+    "link": "ts-node src/link.ts",
+    "transfer": "ts-node src/transfer.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,7 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "symbol-sdk": "^1.0.0"
+    "dotenv": "^8.2.0",
+    "symbol-sdk": "^1.0.0",
+    "ts-node": "^9.1.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.37",
