@@ -9,6 +9,7 @@
     "nft4": "tsc && node dist/nft4.js",
     "link": "ts-node src/link.ts",
     "transfer": "ts-node src/transfer.ts",
+    "secret1": "ts-node src/secret1.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
