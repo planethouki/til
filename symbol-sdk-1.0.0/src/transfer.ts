@@ -6,6 +6,7 @@ const nodeUrl: string = process.env.NODE_URL || "";
 const privateKey: string = process.env.PRIVATE_KEY || "";
 const toAddress: string = process.env.TO_ADDRESS || "";
 const amount: string = process.env.AMOUNT || "";
+const message: string = process.env.MESSAGE || "";
 
 if (nodeUrl === "" || privateKey === "" || toAddress === "" || amount === "") {
     throw new Error("node url or private key is invalid");
@@ -24,7 +25,7 @@ const main = async () => {
         Deadline.create(ea),
         Address.createFromRawAddress(toAddress),
         [new Mosaic(nc.currency.unresolvedMosaicId, UInt64.fromNumericString(amount))],
-        PlainMessage.create(""),
+        PlainMessage.create(message),
         nt,
         UInt64.fromUint(100000)
     );
@@ -35,6 +36,7 @@ const main = async () => {
     const th: TransactionRepository = factory.createTransactionRepository();
     const res: TransactionAnnounceResponse = await th.announce(signedTx).toPromise();
     console.log(res.message);
+    console.log(signedTx.hash);
 }
 
 main();
