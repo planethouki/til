@@ -1,0 +1,16 @@
+{
+  "name": "minecraft-anvil",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prismarine-provider-anvil": "^2.3.2",
+    "vec3": "^0.1.7"
+  }
+}
