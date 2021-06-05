@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prismarine": "ts-node prismarine.ts",
+    "chunk": "ts-node chunk.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^15.12.0",
+    "mc-anvil": "^1.12.0",
     "prismarine-provider-anvil": "^2.3.2",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2",
     "vec3": "^0.1.7"
   }
 }

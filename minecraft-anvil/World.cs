@@ -13,6 +13,6 @@ namespace World
     {
         public int x;
         public int z;
-        public bool[] vertical;
+        public string[] vertical;
     }
 }
