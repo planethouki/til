@@ -10,6 +10,9 @@
     "link": "ts-node src/link.ts",
     "transfer": "ts-node src/transfer.ts",
     "secret1": "ts-node src/secret1.ts",
+    "aggregate1": "ts-node src/aggregate1.ts",
+    "aggregate2": "ts-node src/aggregate2.ts",
+    "wallet1": "ts-node src/wallet1.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
