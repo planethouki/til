@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "transfer1": "ts-node src/transfer1.ts"
+    "transfer1": "ts-node src/transfer1.ts",
+    "mosaic-revokable1": "ts-node src/mosaic-revokable1.ts",
+    "mosaic-revokable2": "ts-node src/mosaic-revokable2.ts"
   },
   "keywords": [],
   "author": "",
