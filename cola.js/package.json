@@ -11,6 +11,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "superstatic": "^7.1.0"
+    "superstatic": "^9.0.2"
   }
 }
