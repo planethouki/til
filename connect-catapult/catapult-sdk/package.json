@@ -31,10 +31,10 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-sort-requires": "^2.1.0",
-    "mocha": "^5.0.1",
-    "mocha-jenkins-reporter": "^0.3.10",
+    "mocha": "^10.2.0",
+    "mocha-jenkins-reporter": "^0.4.8",
     "ncp": "^2.0.0",
-    "nyc": "^11.8.0",
+    "nyc": "^15.1.0",
     "rimraf": "^2.6.2"
   },
   "dependencies": {
