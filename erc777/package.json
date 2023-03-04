@@ -20,7 +20,7 @@
     "@openzeppelin/contracts": "^2.4.0",
     "@truffle/hdwallet-provider": "^1.0.29",
     "dotenv": "^8.2.0",
-    "truffle": "^5.1.9",
+    "truffle": "^5.7.9",
     "truffle-flattener": "^1.4.2"
   }
 }
